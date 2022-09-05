@@ -11,7 +11,7 @@ const createPath = require('./helpers/create-path');
 const app = express();
 
 app.set('view engine', 'ejs');
-const PORT = 3000;
+const PORT = 8080;
 
 const db = 'mongodb+srv://shkurd:Euro0077@cluster0.ks55s68.mongodb.net/node-blog?retryWrites=true&w=majority' // - так будет писать в базу данных 'node-blog'
 
