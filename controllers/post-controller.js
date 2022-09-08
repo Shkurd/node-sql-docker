@@ -1,17 +1,29 @@
 const Post = require('../models/post');
 const createPath = require('../helpers/create-path');
 
+const db = require('../models/db')
+
 const handleError = (res, error) => {
   console.log(error);
   res.render(createPath('error'), { title: 'Error' });
 };
 
-const getPost = (req, res) => {
-  const title = 'Post';
-  Post
-    .findById(req.params.id)
-    .then(post => res.render(createPath('post'), { post, title }))
-    .catch((error) => handleError(res, error));
+const getPost = async (req, res) => {
+  // const title = 'Post';
+  // Post
+  //   .findById(req.params.id)
+  //   .then(post => res.render(createPath('post'), { post, title }))
+  //   .catch((error) => handleError(res, error));
+
+    // const title = 'Post';
+  // Post
+  //   .findById(req.params.id)
+  //   .then(post => res.render(createPath('post'), { post, title }))
+  //   .catch((error) => handleError(res, error));
+  
+  // const Post = await db.select().from('post');
+  // console.log(Post);
+  // res.json(createPath('post'), { Post, title });
 }
 
 const deletePost = (req, res) => {
@@ -42,11 +54,12 @@ const editPost = (req, res) => {
 
 const getPosts = (req, res) => {
   const title = 'Posts';
-  Post
-    .find()
-    .sort({ createdAt: -1 })
-    .then(posts => res.render(createPath('posts'), { posts, title }))
-    .catch((error) => handleError(res, error));
+  // Post
+  //   .find()
+  //   .sort({ createdAt: -1 })
+  //   .then(posts => res.render(createPath('posts'), { posts, title }))
+  //   .catch((error) => handleError(res, error));
+  res.render(createPath('posts'), { title })
 }
 
 const getAddPost = (req, res) => {
@@ -64,11 +77,11 @@ const addPost = (req, res) => {
 }
 
 module.exports = {
-  getPost,
-  deletePost,
-  getEditPost,
-  editPost,
+  // getPost,
+  // deletePost,
+  // getEditPost,
+  // editPost,
   getPosts,
-  getAddPost,
-  addPost,
+  // getAddPost,
+  // addPost,
 };
