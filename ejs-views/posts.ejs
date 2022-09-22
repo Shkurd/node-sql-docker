@@ -6,19 +6,19 @@
   <h1>Posts:</h1>
   <ul>
     <% if (posts.length) { %>
-      <% posts.forEach(({ id, title, createdAt, text, author }) => { %>
+      <% posts.forEach(({ post_id, post_title, post_text, post_author }) => { %>
         <li>
           <article>
             <h2>
-              <a href="/posts/<%= id %>"><%= title %></a>
+              <span> Date</span>
+              <a href="/posts/<%= post_id %>"><%= post_title %></a>
             </h2>
-            <p><%= text %></p>
+            <p><%= post_text %></p>
             <div class="info">
-              <span><%= createdAt.toLocaleDateString() %></span>
-              <span><%= author %></span>
+              <span><%= post_author %></span>
             </div>
-            <button class="btn-delete" data-id="<%= id %>">
-              <i class="fas fa-trash-alt" data-id="<%= id %>"></i>
+            <button class="btn-delete" data-id="<%= post_id %>">
+              <i class="fas fa-trash-alt" data-id="<%= post_id %>"></i>
             </button>
           </article>
         </li>

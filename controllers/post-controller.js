@@ -1,17 +1,45 @@
 const Post = require('../models/post');
 const createPath = require('../helpers/create-path');
 
+const db = require('../models/db')
+
+// const { Client } = require('pg')
+// const client = new Client("postgres://habrpguser:pgpwd4habr@localhost:5432/habrdb");
+const { Pool, Client } = require('pg')
+const poolData = {
+    host: 'localhost',
+    port: 5432,
+    database: 'habrdb',
+    user: 'habrpguser',
+    password: 'pgpwd4habr',
+    max: 50,
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 2000,
+  }
+// const pool = new Pool("postgres://habrpguser:pgpwd4habr@localhost:5432/habrdb")
+
+
 const handleError = (res, error) => {
   console.log(error);
   res.render(createPath('error'), { title: 'Error' });
 };
 
-const getPost = (req, res) => {
-  const title = 'Post';
-  Post
-    .findById(req.params.id)
-    .then(post => res.render(createPath('post'), { post, title }))
-    .catch((error) => handleError(res, error));
+const getPost = async (req, res) => {
+  // const title = 'Post';
+  // Post
+  //   .findById(req.params.id)
+  //   .then(post => res.render(createPath('post'), { post, title }))
+  //   .catch((error) => handleError(res, error));
+
+    // const title = 'Post';
+  // Post
+  //   .findById(req.params.id)
+  //   .then(post => res.render(createPath('post'), { post, title }))
+  //   .catch((error) => handleError(res, error));
+  
+  // const Post = await db.select().from('post');
+  // console.log(Post);
+  // res.json(createPath('post'), { Post, title });
 }
 
 const deletePost = (req, res) => {
@@ -40,13 +68,51 @@ const editPost = (req, res) => {
     .catch((error) => handleError(res, error));
 }
 
-const getPosts = (req, res) => {
+const getPosts = async (req, res) => {
   const title = 'Posts';
-  Post
-    .find()
-    .sort({ createdAt: -1 })
-    .then(posts => res.render(createPath('posts'), { posts, title }))
-    .catch((error) => handleError(res, error));
+  // Post
+  //   .find()
+  //   .sort({ createdAt: -1 })
+  //   .then(posts => res.render(createPath('posts'), { posts, title }))
+  //   .catch((error) => handleError(res, error));
+  let posts = [
+    {
+      post_id: 1,
+      post_title: 'заголовок поста 111',
+      post_text: 'текст поста 111',
+      post_author: 'Антон Шкурдов',
+      post_date: '2022-09-07T21:00:00.000Z'
+    },
+    {
+      post_id: 2,
+      post_title: 'заголовок поста 222',
+      post_text: 'текст поста 222',
+      post_author: 'Антон Шкурдов',
+      post_date: '2022-09-07T21:00:00.000Z'
+    },
+    {
+      post_id: 3,
+      post_title: 'заголовок поста 333',
+      post_text: 'текст поста 333',
+      post_author: 'Антон Шкурдов',
+      post_date: '2022-09-07T21:00:00.000Z'
+    }
+  ];
+  // res.render(createPath('posts'), { posts, title })
+  // const client = new Client("postgres://habrpguser:pgpwd4habr@localhost:5432/habrdb");
+  const pool = new Pool(poolData)
+    let posts2 = null
+    // pool.connect();
+    pool.query("SELECT * FROM posts")
+    .then((response) => {
+      posts2 = response.rows;
+    })
+    .then(() => res.render(createPath('posts'), { posts2, title }))
+    .catch(e => console.error(e.stack))
+    .finally(res.render(createPath('posts'), { posts, title }))
+
+  // res.render(createPath('posts'), { posts, title });
+
 }
 
 const getAddPost = (req, res) => {
@@ -64,10 +130,10 @@ const addPost = (req, res) => {
 }
 
 module.exports = {
-  getPost,
-  deletePost,
-  getEditPost,
-  editPost,
+  // getPost,
+  // deletePost,
+  // getEditPost,
+  // editPost,
   getPosts,
   getAddPost,
   addPost,
