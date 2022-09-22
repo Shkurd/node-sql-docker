@@ -16,7 +16,7 @@ const router = express.Router();
 // router.get('/edit/:id', getEditPost);
 // router.put('/edit/:id', editPost);
 router.get('/posts', getPosts);
-// router.get('/add-post', getAddPost);
+router.get('/add-post', getAddPost);
 // router.post('/add-post', addPost);
 
 module.exports = router;

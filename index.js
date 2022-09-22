@@ -29,9 +29,9 @@ app.listen(PORT, (error) => {
   error ? console.log(error) : console.log(`my app listening port ${PORT}`);
 });
 
-app.use(cors());
-app.use(express.urlencoded({ extended: false }));
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
+// app.use(cors());
+// app.use(express.urlencoded({ extended: false }));
+// app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 app.use(express.static('styles'));
 app.use(methodOverride('_method'));
 
@@ -41,13 +41,14 @@ app.get('/', (req, res) => {
   res.render(createPath('index'), { title });
 });
 
-// app.use(postRoutes);
-// app.use(postApiRoutes);
+
+app.use(postRoutes);
+app.use(postApiRoutes);
 // app.use(contactRoutes);
 
-// app.use((req, res) => {
-//   const title = 'Error Page';
-//   res
-//     .status(404)
-//     .render(createPath('error'), { title });
-// });
+app.use((req, res) => {
+  const title = 'Error Page';
+  res
+    .status(404)
+    .render(createPath('error'), { title });
+});

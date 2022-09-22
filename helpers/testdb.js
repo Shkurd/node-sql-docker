@@ -33,31 +33,34 @@
 // })()
 
 
-var pg = require('pg');
+// var pg = require('pg');
 
-;(async () => {
-  try {
+// ;(async () => {
+//   try {
 
-    let conString = "postgres://habrpguser:pgpwd4habr@localhost:5432/habrdb";
+//     let conString = "postgres://habrpguser:pgpwd4habr@localhost:5432/habrdb";
     
-    let client = new pg.Client(conString);
-    client.connect();
+//     let client = new pg.Client(conString);
+//     client.connect();
 
-    let query = await client.query("SELECT * FROM posts");
-    console.log('Data came back from the DB:', query);
-    query.on('row', function(row) {
-      console.log(row);
-    });
+//     let query = await client.query("SELECT * FROM posts");
+//     console.log('Data came back from the DB:', query);
+//     // query.on('row', function(row) {
+//     //   console.log(row);
+//     // });
+
+//     console.log('query.row: ', query.rows);
   
-    query.on('end', function() {
-        client.end();
-    });
+  
+//     // query.on('end', function() {
+//     //     client.end();
+//     // });
 
-  } catch (err) {
-    console.log(err)
-    process.exit(1)
-  }
-})();
+//   } catch (err) {
+//     console.log(err)
+//     process.exit(1)
+//   }
+// })();
 
 
 
