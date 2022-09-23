@@ -14,7 +14,7 @@
             </h2>
             <p><%= post_text %></p>
             <div class="info">
-              <span><small>Дата:</small> <%= post_date.toLocaleDateString() %></span>
+              <span><small>Date:</small> <%= post_date.toLocaleDateString('en', {year: 'numeric', month: 'long', day: 'numeric'}) %></span>
               <span><%= post_author %></span>
             </div>
             <button class="btn-delete" data-id="<%= post_id %>">
