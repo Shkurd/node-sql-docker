@@ -29,6 +29,11 @@ app.listen(PORT, (error) => {
   error ? console.log(error) : console.log(`my app listening port ${PORT}`);
 });
 
+
+
+// const { Client } = require('pg')
+// const client = new Client("postgres://habrpguser:pgpwd4habr@localhost:5432/habrdb");
+
 // app.use(cors());
 // app.use(express.urlencoded({ extended: false }));
 // app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
@@ -37,7 +42,7 @@ app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
   const title = 'Home';
-  console.log('123')
+  console.log('Main route working')
   res.render(createPath('index'), { title });
 });
 

@@ -1,5 +1,5 @@
 const { Client } = require('pg')
-const client = new Client("postgres://habrpguser:pgpwd4habr@localhost:5432/habrdb")
+const client = new Client("postgres://habrpguser:pgpwd4habr@0.0.0.0:5432/habrdb")
 client.connect()
 client
     .query("SELECT * FROM posts")

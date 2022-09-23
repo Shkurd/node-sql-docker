@@ -3,14 +3,14 @@ const Post = require('../models/post');
 
 const { Pool, Client } = require('pg')
 const poolData = {
-    host: 'localhost',
+    host: 'pgsql-server',
     port: 5432,
     database: 'habrdb',
     user: 'habrpguser',
     password: 'pgpwd4habr',
     max: 50,
-    idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 2000,
+    // idleTimeoutMillis: 0,
+    // connectionTimeoutMillis: 0
 }
 
 const handleError = (res, error) => {
