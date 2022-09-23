@@ -11,10 +11,6 @@
     "docker compose run": "docker-compose up --build -d",
     "docker compose down": "docker-compose down",
     "testdb": "node helpers/testdb.js",
-    "testdb2": "node helpers/testdb2.js",
-    "testdb3": "node helpers/testdb3.js",
-    "testdb4": "node helpers/testdb4.js",
-    "testdb5": "node models/db.js",
     "seed": "node models/post.js"
   },
   "author": "Anton",

@@ -1,32 +1,16 @@
-const Post = require('../models/post');
-
-
-const { Pool, Client } = require('pg')
-const poolData = {
-    host: 'localhost',
-    port: 5432,
-    database: 'habrdb',
-    user: 'habrpguser',
-    password: 'pgpwd4habr',
-    max: 50,
-    idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 2000,
-}
+const pool= require('../helpers/db')
 
 const handleError = (res, error) => {
   res.status(500).send(error.message);
 }
 
-const getPosts = async (req, res) => {
-  // Post
-  //   .find()
-  //   .sort({ createdAt: -1 })
-  //   .then((posts) => res.status(200).json(posts))
-  //   .catch((error) => handleError(res, error));
-  
-    const pool = new Pool(poolData);
-    const posts = await  pool.query("SELECT * FROM posts");
-    res.status(200).json(posts.rows);
+const getPosts = (req, res) => {
+    pool.query("SELECT * FROM posts")
+    .then((response) => {
+      posts = response.rows;
+    })
+    .then(() => res.status(200).json(posts))
+    .catch(e => console.error(e.stack))
 }
 
 const addPost = (req, res) => {
