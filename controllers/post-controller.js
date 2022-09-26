@@ -29,14 +29,11 @@ const deletePost = (req, res) => {
     res.sendStatus(200);
   })
   .catch((error) => handleError(res, error));
+
 }
 
 const getEditPost = (req, res) => {
   const title = 'Edit post';
-  // Post
-  //   .findById(req.params.id)
-  //   .then(post => res.render(createPath('edit-post'), { post, title }))
-  //   .catch((error) => handleError(res, error));
 
   let post = null
   pool.query(`SELECT * FROM posts WHERE post_id=${req.params.id}`)
@@ -45,8 +42,6 @@ const getEditPost = (req, res) => {
   })
   .then(() => res.render(createPath('edit-post'), { post, title }))
   .catch(e => console.error(e.stack))
-
-
 
 }
 
@@ -58,13 +53,18 @@ const editPost = (req, res) => {
   //   .then((result) => res.redirect(`/posts/${id}`))
   //   .catch((error) => handleError(res, error));
 
+  pool.query(`UPDATE posts SET post_title = ${title} WHERE post_id=${id}`)
+  // .then((response) => {
+  //   post = response.rows[0];
+  // })
+  .then(() => res.redirect(`/posts/${id}`))
+  .catch(e => console.error(e.stack))
 
 
 }
 
 const getPosts = (req, res) => {
   const title = 'Posts';
-  // const pool = new Pool(dbСredits)
     let posts = null
     pool.query("SELECT * FROM posts")
     .then((response) => {
