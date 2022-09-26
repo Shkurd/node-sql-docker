@@ -23,10 +23,13 @@ const addPost = (req, res) => {
 }
 
 const getPost = (req, res) => {
-  Post
-    .findById(req.params.id)
-    .then((post) => res.status(200).json(post))
-    .catch((error) => handleError(res, error));
+  let post = null
+  pool.query(`SELECT * FROM posts WHERE post_id=${req.params.id}`)
+  .then((response) => {
+    post = response.rows[0];
+  })
+  .then(() => res.status(200).json(post))
+  .catch(e => console.error(e.stack))
 }
 
 const deletePost = (req, res) => {
@@ -40,10 +43,10 @@ const deletePost = (req, res) => {
 const editPost = (req, res) => {
   const { title, author, text } = req.body;
   const { id } = req.params;
-  Post
-    .findByIdAndUpdate(id, { title, author, text }, { new: true })
-    .then((post) => res.json(post))
-    .catch((error) => handleError(res, error));
+  
+  pool.query(`UPDATE posts SET post_title = '${title}', post_author = '${author}', post_text = '${text}' WHERE post_id=${id}`)
+  .then(() => res.json(post))
+  .catch(e => console.error(e.stack))
 }
 
 module.exports = {

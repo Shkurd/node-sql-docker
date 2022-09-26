@@ -14,8 +14,6 @@ const getPost = async (req, res) => {
   pool.query(`SELECT * FROM posts WHERE post_id=${req.params.id}`)
   .then((response) => {
     post = response.rows[0];
-    console.log('post response: ', post)
-    console.log('post response post_date: ', post.post_date)
   })
   .then(() => res.render(createPath('post'), { post, title }))
   .catch(e => console.error(e.stack))
@@ -48,18 +46,9 @@ const getEditPost = (req, res) => {
 const editPost = (req, res) => {
   const { title, author, text } = req.body;
   const { id } = req.params;
-  // Post
-  //   .findByIdAndUpdate(req.params.id, { title, author, text })
-  //   .then((result) => res.redirect(`/posts/${id}`))
-  //   .catch((error) => handleError(res, error));
-
-  pool.query(`UPDATE posts SET post_title = ${title} WHERE post_id=${id}`)
-  // .then((response) => {
-  //   post = response.rows[0];
-  // })
+  pool.query(`UPDATE posts SET post_title = '${title}', post_author = '${author}', post_text = '${text}' WHERE post_id=${id}`)
   .then(() => res.redirect(`/posts/${id}`))
   .catch(e => console.error(e.stack))
-
 
 }
 
