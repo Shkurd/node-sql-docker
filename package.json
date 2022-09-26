@@ -10,8 +10,7 @@
     "docker run": "docker run -d -p 5000:5000 my-docker-1",
     "docker compose run": "docker-compose up --build -d",
     "docker compose down": "docker-compose down",
-    "testdb": "node helpers/testdb.js",
-    "seed": "node models/post.js"
+    "testdb": "node helpers/testdb.js"
   },
   "author": "Anton",
   "license": "ISC",

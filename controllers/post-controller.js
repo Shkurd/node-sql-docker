@@ -9,21 +9,22 @@ const handleError = (res, error) => {
 };
 
 const getPost = async (req, res) => {
-  // const title = 'Post';
+  const title = 'Post';
   // Post
   //   .findById(req.params.id)
   //   .then(post => res.render(createPath('post'), { post, title }))
   //   .catch((error) => handleError(res, error));
 
-    // const title = 'Post';
-  // Post
-  //   .findById(req.params.id)
-  //   .then(post => res.render(createPath('post'), { post, title }))
-  //   .catch((error) => handleError(res, error));
-  
-  // const Post = await db.select().from('post');
-  // console.log(Post);
-  // res.json(createPath('post'), { Post, title });
+  let post = null
+  pool.query(`SELECT * FROM posts WHERE post_id=${req.params.id}`)
+  .then((response) => {
+    post = response.rows[0];
+    console.log('post response: ', post)
+    console.log('post response post_date: ', post.post_date)
+  })
+  .then(() => res.render(createPath('post'), { post, title }))
+  .catch(e => console.error(e.stack))
+
 }
 
 const deletePost = (req, res) => {
@@ -79,7 +80,7 @@ const addPost = (req, res) => {
 }
 
 module.exports = {
-  // getPost,
+  getPost,
   // deletePost,
   // getEditPost,
   // editPost,

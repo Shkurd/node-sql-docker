@@ -11,6 +11,7 @@ const poolData = {
   }
 const pool = new Pool(poolData)
 pool
-    .query("SELECT * FROM posts")
-    .then(res => console.log('pool res.rows:',res.rows[0]))
+    // .query("SELECT * FROM posts")
+    .query(`SELECT * FROM posts WHERE post_id=2`)
+    .then(res => console.log('pool res.rows:',res.rows[0].post_date))
     .catch(e => console.error(e.stack))
