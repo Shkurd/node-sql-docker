@@ -12,7 +12,7 @@ const {
 const router = express.Router();
 
 router.get('/posts/:id', getPost);
-// router.delete('/posts/:id', deletePost);
+router.delete('/posts/:id', deletePost);
 router.get('/edit/:id', getEditPost);
 router.put('/edit/:id', editPost);
 router.get('/posts', getPosts);

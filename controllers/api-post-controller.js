@@ -32,10 +32,9 @@ const getPost = (req, res) => {
 
 const deletePost = (req, res) => {
   const { id } = req.params;
-  Post
-  .findByIdAndDelete(id)
-  .then((post) => res.status(200).json(id))
-  .catch((error) => handleError(res, error));
+  pool.query(`DELETE FROM posts WHERE post_id=${id}`)
+  .then(() => res.json(id))
+  .catch(e => console.error(e.stack))
 }
 
 const editPost = (req, res) => {

@@ -1,7 +1,6 @@
 
 const createPath = require('../helpers/create-path');
 const pool = require('../helpers/db')
-const { Pool } = require('pg')
 
 const handleError = (res, error) => {
   console.log(error);
@@ -21,13 +20,10 @@ const getPost = async (req, res) => {
 }
 
 const deletePost = (req, res) => {
-  Post
-  .findByIdAndDelete(req.params.id)
-  .then((result) => {
-    res.sendStatus(200);
-  })
-  .catch((error) => handleError(res, error));
-
+  const { id } = req.params;
+  pool.query(`DELETE FROM posts WHERE post_id=${id}`)
+  .then(() =>  res.sendStatus(200))
+  .catch(e => console.error(e.stack))
 }
 
 const getEditPost = (req, res) => {
@@ -77,7 +73,7 @@ const addPost = (req, res) => {
 
 module.exports = {
   getPost,
-  // deletePost,
+  deletePost,
   getEditPost,
   editPost,
   getPosts,
