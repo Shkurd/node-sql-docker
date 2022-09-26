@@ -5,16 +5,16 @@
   <%- include('./partials/nav.ejs') %>
   <article class="post">
     <div class="info">
-      <span><%= post.createdAt.toLocaleDateString() || 'No date' %></span>
-      <span><%= post.author %></span>
+      <span><%= post.post_date.toLocaleDateString('en', {year: 'numeric', month: 'long', day: 'numeric'}) || 'No date' %></span>
+      <span><%= post.post_author %></span>
     </div>
-    <h1><%= post.title %></h1>
-    <p><%= post.text %></p>
-    <a href="/edit/<%= post.id %>" class="btn-edit">
+    <h1><%= post.post_title %></h1>
+    <p><%= post.post_text %></p>
+    <a href="/edit/<%= post.post_id %>" class="btn-edit">
       <i class="fas fa-edit"></i>
     </a>
-    <button class="btn-delete" data-id="<%= post.id %>">
-      <i class="fas fa-trash-alt" data-id="<%= post.id %>"></i>
+    <button class="btn-delete" data-id="<%= post.post_id %>">
+      <i class="fas fa-trash-alt" data-id="<%= post.post_id %>"></i>
     </button>
   </article>
 
