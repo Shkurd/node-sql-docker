@@ -70,11 +70,9 @@ const getAddPost = (req, res) => {
 
 const addPost = (req, res) => {
   const { title, author, text } = req.body;
-  const post = new Post({ title, author, text });
-  post
-    .save()
-    .then((result) => res.redirect('/posts'))
-    .catch((error) => handleError(res, error));
+  pool.query(`INSERT INTO posts (post_title, post_author, post_text) VALUES ('${title}', '${author}', '${text}');`)
+  .then(() => res.redirect('/posts'))
+  .catch(e => console.error(e.stack))
 }
 
 module.exports = {
