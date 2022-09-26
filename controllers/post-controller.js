@@ -38,19 +38,25 @@ const deletePost = (req, res) => {
 
 const getEditPost = (req, res) => {
   const title = 'Edit post';
-  Post
-    .findById(req.params.id)
-    .then(post => res.render(createPath('edit-post'), { post, title }))
-    .catch((error) => handleError(res, error));
+  // Post
+  //   .findById(req.params.id)
+  //   .then(post => res.render(createPath('edit-post'), { post, title }))
+  //   .catch((error) => handleError(res, error));
+
+
+  
 }
 
 const editPost = (req, res) => {
   const { title, author, text } = req.body;
   const { id } = req.params;
-  Post
-    .findByIdAndUpdate(req.params.id, { title, author, text })
-    .then((result) => res.redirect(`/posts/${id}`))
-    .catch((error) => handleError(res, error));
+  // Post
+  //   .findByIdAndUpdate(req.params.id, { title, author, text })
+  //   .then((result) => res.redirect(`/posts/${id}`))
+  //   .catch((error) => handleError(res, error));
+
+
+
 }
 
 const getPosts = (req, res) => {
@@ -82,8 +88,8 @@ const addPost = (req, res) => {
 module.exports = {
   getPost,
   // deletePost,
-  // getEditPost,
-  // editPost,
+  getEditPost,
+  editPost,
   getPosts,
   getAddPost,
   addPost,
