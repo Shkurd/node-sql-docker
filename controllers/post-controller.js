@@ -10,11 +10,6 @@ const handleError = (res, error) => {
 
 const getPost = async (req, res) => {
   const title = 'Post';
-  // Post
-  //   .findById(req.params.id)
-  //   .then(post => res.render(createPath('post'), { post, title }))
-  //   .catch((error) => handleError(res, error));
-
   let post = null
   pool.query(`SELECT * FROM posts WHERE post_id=${req.params.id}`)
   .then((response) => {
@@ -43,8 +38,16 @@ const getEditPost = (req, res) => {
   //   .then(post => res.render(createPath('edit-post'), { post, title }))
   //   .catch((error) => handleError(res, error));
 
+  let post = null
+  pool.query(`SELECT * FROM posts WHERE post_id=${req.params.id}`)
+  .then((response) => {
+    post = response.rows[0];
+  })
+  .then(() => res.render(createPath('edit-post'), { post, title }))
+  .catch(e => console.error(e.stack))
 
-  
+
+
 }
 
 const editPost = (req, res) => {
