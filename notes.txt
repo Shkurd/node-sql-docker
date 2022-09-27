@@ -1,12 +1,13 @@
-https://www.youtube.com/watch?v=Dm0CmZz-QyI&t=1534s
 
-Конфигурация компоузера https://habr.com/ru/post/578744/
+ПРИМЕРЫ:
+Конфигурация компоузера (ghbvth) https://habr.com/ru/post/578744/
 Создание сервера и работа в PGAdmin https://linuxhint.com/postgresql_docker/
-Создание базы данных и таблицы в PGAdmin https://www.youtube.com/watch?v=h5wgbJiSy7Q
-
+Создание данных в таблице в PGAdmin https://www.youtube.com/watch?v=h5wgbJiSy7Q  (генерация даты: CURRENT_DATE в дефолтном поле вносится, не в генерации)
 Пример подключения из ноды https://overcoder.net/q/9686/%D0%BA%D0%B0%D0%BA-%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B8%D1%82%D1%8C%D1%81%D1%8F-%D0%BA-postgres-%D1%87%D0%B5%D1%80%D0%B5%D0%B7-nodejs
 https://node-postgres.com/features/queries
-пример запроса на создание базовой информации в таблицу PGAdmin
+
+
+пример запроса на создание базовой информации в таблицу PGAdmin (но можно и через админку на 5050 порту)
 
 INSERT INTO posts  (post_title, post_text, post_author)
 VALUES
@@ -16,47 +17,5 @@ VALUES
 
 В ноде можно протестить и получить данные
 testdb.js:
-
-cvar pg = require('pg');
-
-;(async () => {
-  try {
-
-    let conString = "postgres://habrpguser:pgpwd4habr@localhost:5432/habrdb";
-    
-    let client = new pg.Client(conString);
-    client.connect();
-
-    let query = await client.query("SELECT * FROM posts");
-    console.log('Data came back from the DB:', query);
-    query.on('row', function(row) {
-      console.log(row);
-    });
-  
-    query.on('end', function() {
-        client.end();
-    });
-
-  } catch (err) {
-    console.log(err)
-    process.exit(1)
-  }
-})();
-
-
-2.
-install postgres image for docker from docker hub:
-docker run --name blog-postgres -e POSTGRES_PASSWORD=123456 -d -p 5432:5432  postgres
-
-//psql -d postgres -h localhost -p 5432 -U postgres
-
-docker exec -it blog-postgres psql -U postgres
-npm run migrate
-
-docker exec docker exec node-sql-docker_server_1 npm run migrate
-docker exec node-sql-docker_server_1 npm run seed
-
-docker exec node-sql-docker_db_1 \dt
-
 
 

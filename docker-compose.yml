@@ -44,9 +44,9 @@ services:
       - "-c"
       - "pg_stat_statements.track=all"
     environment:
-      POSTGRES_DB: "habrdb"
-      POSTGRES_USER: "habrpguser"
-      POSTGRES_PASSWORD: "pgpwd4habr"
+      POSTGRES_DB: "shkurdovdb"
+      POSTGRES_USER: "shkurdovuser"
+      POSTGRES_PASSWORD: "pgpwd4shkurdov"
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
       - ../2. Init Database:/docker-entrypoint-initdb.d
@@ -54,7 +54,7 @@ services:
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U habrpguser -d habrdb"]
+      test: ["CMD-SHELL", "pg_isready -U shkurdovuser -d shkurdovdb"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -72,8 +72,8 @@ services:
     container_name: pgadmin_container
     image: dpage/pgadmin4:5.7
     environment:
-      PGADMIN_DEFAULT_EMAIL: "habrpguser@habr.com"
-      PGADMIN_DEFAULT_PASSWORD: "pgadminpwd4habr"
+      PGADMIN_DEFAULT_EMAIL: "shkurdovuser@vrp.com"
+      PGADMIN_DEFAULT_PASSWORD: "pgadminpwd4shkurdov"
       PGADMIN_CONFIG_SERVER_MODE: "False"
     volumes:
       - ./pgadmin:/var/lib/pgadmin
@@ -81,7 +81,7 @@ services:
       - "5050:80"
     restart: unless-stopped
     links:
-      - "postgres:pgsql-server"
+      - "postgres:postgres"
     deploy:
       resources:
         limits:
