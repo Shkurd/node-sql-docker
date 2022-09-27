@@ -2,7 +2,7 @@ https://www.youtube.com/watch?v=Dm0CmZz-QyI&t=1534s
 
 Конфигурация компоузера https://habr.com/ru/post/578744/
 Создание сервера и работа в PGAdmin https://linuxhint.com/postgresql_docker/
-Создание базы данных и таблицы в PGAdmin https://www.youtube.com/watch?v=h5wgbJiSy7Q
+Создание базы данных и таблицы в PGAdmin https://www.youtube.com/watch?v=h5wgbJiSy7Q  (генерация даты: created_timestamp timestamp default current_timestamp)
 
 Пример подключения из ноды https://overcoder.net/q/9686/%D0%BA%D0%B0%D0%BA-%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B8%D1%82%D1%8C%D1%81%D1%8F-%D0%BA-postgres-%D1%87%D0%B5%D1%80%D0%B5%D0%B7-nodejs
 https://node-postgres.com/features/queries
