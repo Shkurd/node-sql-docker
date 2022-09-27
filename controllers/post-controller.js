@@ -2,10 +2,10 @@
 const createPath = require('../helpers/create-path');
 const pool = require('../helpers/db')
 
-const handleError = (res, error) => {
-  console.log(error);
-  res.render(createPath('error'), { title: 'Error' });
-};
+// const handleError = (res, error) => {
+//   console.log(error);
+//   res.render(createPath('error'), { title: 'Error' });
+// };
 
 const getPost = async (req, res) => {
   const title = 'Post';
@@ -51,7 +51,7 @@ const editPost = (req, res) => {
 const getPosts = (req, res) => {
   const title = 'Posts';
     let posts = null
-    pool.query("SELECT * FROM posts")
+    pool.query("SELECT * FROM posts ORDER BY post_id DESC")
     .then((response) => {
       posts = response.rows;
     })
