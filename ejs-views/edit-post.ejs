@@ -3,18 +3,18 @@
   <%- include('./partials/head.ejs') %>
 <body>
   <%- include('./partials/nav.ejs') %>
-  <form id="post-form" method="post" action="/edit/<%= post.post_id %>?_method=PUT">
+  <form id="post-form" method="post" action="/edit/<%= post.post_id %>?_method=PUT" required="required">
     <div class="form-info">
       <label>Post Title
-        <input type="text" name="title" value="<%= post.post_title %>">
+        <input type="text" name="title" value="<%= post.post_title %>" required="required">
       </label>
       <label>Author
-        <input type="text" name="author" value="<%= post.post_author %>">
+        <input type="text" name="author" value="<%= post.post_author %>" required="required">
       </label>
     </div>
     <div class="form-text">
       <label>Post Text
-        <textarea name="text"><%= post.post_text %></textarea>
+        <textarea name="text" required="required"><%= post.post_text %></textarea>
       </label>
     </div>
     <div class="form-button">
