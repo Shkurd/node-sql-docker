@@ -1,11 +1,37 @@
 
+// const fs = require('../fs');
+// const mv = promisify(fs.rename);
 const createPath = require('../helpers/create-path');
-const pool = require('../helpers/db')
+const pool = require('../helpers/db');
+
+
+// const multer  = require('multer');
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, './uploads')
+//   },
+  
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now()+ "-" + file.originalname)
+//   }
+// })
+
+// const upload = multer({ storage: storage })
+// console.log('upload1: ', upload);
+
 
 // const handleError = (res, error) => {
 //   console.log(error);
 //   res.render(createPath('error'), { title: 'Error' });
 // };
+
+
+// var fileUpload = require('express-fileupload');
+
+
+
+
 
 const getPost = async (req, res) => {
   const title = 'Post';
@@ -65,7 +91,16 @@ const getAddPost = (req, res) => {
 }
 
 const addPost = (req, res) => {
+  res.setHeader('content-type', 'text/html;charset=utf-8');
   const { title, author, text } = req.body;
+  console.log('req.files ',req.files);
+  console.log('req.files.imgfile ', req.files.imgfile);
+   if (req.files) {
+    // const { file } = req.files.imgfile;
+    req.files.imgfile.mv('/public/uploads/'+(Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name);
+  }
+  
+ 
   pool.query(`INSERT INTO posts (post_title, post_author, post_text) VALUES ('${title}', '${author}', '${text}');`)
   .then(() => res.redirect('/posts'))
   .catch(e => console.error(e.stack))

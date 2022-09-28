@@ -109,6 +109,16 @@ textarea {
   min-height: 150px;
 }
 
+.form-file label{
+  flex: none;
+}
+
+.form-file input {
+  background: unset;
+  border: none;
+  padding: 3px 0;
+}
+
 .form-button {
   display: flex;
   justify-content: flex-end;

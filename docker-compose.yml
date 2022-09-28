@@ -7,6 +7,11 @@ services:
       - '5000:5000'
     links:
       - postgres
+    environment:
+      - UPLOAD_PATH=/uploads
+      - UPLOADED_PATH=/app/uploads
+    volumes:
+      - ./uploads:/app/uploads
     networks:
       - postgres
 
