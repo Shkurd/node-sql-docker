@@ -91,15 +91,21 @@ const getAddPost = (req, res) => {
 }
 
 const addPost = (req, res) => {
-  res.setHeader('content-type', 'text/html;charset=utf-8');
+  // res.setHeader('content-type', 'text/html;charset=utf-8');
   const { title, author, text } = req.body;
   console.log('req.files ',req.files);
   console.log('req.files.imgfile ', req.files.imgfile);
    if (req.files) {
     // const { file } = req.files.imgfile;
-    req.files.imgfile.mv('/public/uploads/'+(Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name);
+    // req.files.imgfile.mv('/public/uploads/'+(Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name);
+    let uploadPath = '/app/uploads/'+(Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей дериктории), а сюда в корневую папку public/uploads будет дублировать по настройкам компоузера. 
+    req.files.imgfile.mv(uploadPath, function(err) {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      console.log('uploadPath', uploadPath)
+    });
   }
-  
  
   pool.query(`INSERT INTO posts (post_title, post_author, post_text) VALUES ('${title}', '${author}', '${text}');`)
   .then(() => res.redirect('/posts'))
