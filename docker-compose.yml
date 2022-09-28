@@ -8,10 +8,10 @@ services:
     links:
       - postgres
     environment:
-      - UPLOAD_PATH=/uploads
+      - UPLOAD_PATH=/public/uploads
       - UPLOADED_PATH=/app/uploads
     volumes:
-      - ./uploads:/app/uploads
+      - ./public/uploads:/app/uploads
     networks:
       - postgres
 
