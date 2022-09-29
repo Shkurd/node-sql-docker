@@ -2,24 +2,27 @@
 <html lang="en">
   <%- include('./partials/head.ejs') %>
 <body>
-  <%- include('./partials/nav.ejs') %>
-  <form id="post-form" method="post" action="/edit/<%= post.post_id %>?_method=PUT" required="required">
-    <div class="form-info">
-      <label>Post Title
-        <input type="text" name="title" value="<%= post.post_title %>" required="required">
-      </label>
-      <label>Author
-        <input type="text" name="author" value="<%= post.post_author %>" required="required">
-      </label>
-    </div>
-    <div class="form-text">
-      <label>Post Text
-        <textarea name="text" required="required"><%= post.post_text %></textarea>
-      </label>
-    </div>
-    <div class="form-button">
-      <input type="submit" value="Submit">
-    </div>
-  </form>
+  <%- include('./partials/header.ejs') %>
+  <main>
+    <form id="post-form" method="post" action="/edit/<%= post.post_id %>?_method=PUT" enctype="multipart/form-data">
+      <div class="form-info">
+        <label>Post Title
+          <input type="text" name="title" value="<%= post.post_title %>" required="required">
+        </label>
+        <label>Author
+          <input type="text" name="author" value="<%= post.post_author %>" required="required">
+        </label>
+      </div>
+      <div class="form-text">
+        <label>Post Text
+          <textarea name="text" required="required"><%= post.post_text %></textarea>
+        </label>
+      </div>
+      <div class="form-button">
+        <input type="submit" value="Submit">
+      </div>
+    </form>
+  <main>
+  <%- include('./partials/footer.ejs') %>
 </body>
 </html>

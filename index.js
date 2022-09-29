@@ -7,6 +7,7 @@ const postRoutes = require('./routes/post-routes');
 const postApiRoutes = require('./routes/api-post-routes');
 const contactRoutes = require('./routes/contact-routes');
 const createPath = require('./helpers/create-path');
+const fileUpload = require('express-fileupload');
 
 const app = express();
 
@@ -18,10 +19,11 @@ app.listen(PORT, (error) => {
 });
 
 
-app.use(cors());
-app.use(express.urlencoded({ extended: false }));
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
-app.use(express.static('styles'));
+// app.use(cors());
+app.use(fileUpload({
+  limits: { fileSize: 50 * 1024 * 1024 },
+}));
+app.use(express.static('public'));
 app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
@@ -29,7 +31,6 @@ app.get('/', (req, res) => {
   console.log('Main route working')
   res.render(createPath('index'), { title });
 });
-
 
 app.use(postRoutes);
 app.use(postApiRoutes);

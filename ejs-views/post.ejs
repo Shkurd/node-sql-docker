@@ -2,22 +2,26 @@
 <html lang="en">
   <%- include('./partials/head.ejs') %>
 <body>
-  <%- include('./partials/nav.ejs') %>
-  <article class="post">
-    <div class="info">
-      <span><%= post.post_date.toLocaleDateString('en', {year: 'numeric', month: 'long', day: 'numeric'}) || 'No date' %></span>
-      <span><%= post.post_author %></span>
-    </div>
-    <h1><%= post.post_title %></h1>
-    <p><%= post.post_text %></p>
-    <a href="/edit/<%= post.post_id %>" class="btn-edit">
-      <i class="fas fa-edit"></i>
-    </a>
-    <button class="btn-delete" data-id="<%= post.post_id %>">
-      <i class="fas fa-trash-alt" data-id="<%= post.post_id %>"></i>
-    </button>
-  </article>
-
+  <%- include('./partials/header.ejs') %>
+  <main>
+    <article class="post">
+      <div class="info">
+        <span><%= post.post_date.toLocaleDateString('en', {year: 'numeric', month: 'long', day: 'numeric'}) || 'No date' %></span>
+        <span><%= post.post_author %></span>
+      </div>
+      <h1><%= post.post_title %></h1>
+      <div class="post__img-wrap">
+        <img class="lazy" data-src="<%= post.post_imglink %>" alt="post main img">
+      </div>
+      <p><%= post.post_text %></p>
+      <a href="/edit/<%= post.post_id %>" class="btn-edit">
+        <i class="fas fa-edit"></i>
+      </a>
+      <button class="btn-delete" data-id="<%= post.post_id %>">
+        <i class="fas fa-trash-alt" data-id="<%= post.post_id %>"></i>
+      </button>
+    </article>
+  </main>
   <script>
     document.addEventListener('click', (e) => {
       const id = e.target?.dataset?.id || null;
@@ -30,5 +34,6 @@
       }
     });
   </script>
+  <%- include('./partials/footer.ejs') %>
 </body>
 </html>

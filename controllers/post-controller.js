@@ -1,11 +1,37 @@
 
+// const fs = require('../fs');
+// const mv = promisify(fs.rename);
 const createPath = require('../helpers/create-path');
-const pool = require('../helpers/db')
+const pool = require('../helpers/db');
+
+
+// const multer  = require('multer');
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, './uploads')
+//   },
+  
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now()+ "-" + file.originalname)
+//   }
+// })
+
+// const upload = multer({ storage: storage })
+// console.log('upload1: ', upload);
+
 
 // const handleError = (res, error) => {
 //   console.log(error);
 //   res.render(createPath('error'), { title: 'Error' });
 // };
+
+
+// var fileUpload = require('express-fileupload');
+
+
+
+
 
 const getPost = async (req, res) => {
   const title = 'Post';
@@ -40,6 +66,8 @@ const getEditPost = (req, res) => {
 }
 
 const editPost = (req, res) => {
+  console.log('req.body:', req.body);
+  console.log('req.params:', req.params);
   const { title, author, text } = req.body;
   const { id } = req.params;
   pool.query(`UPDATE posts SET post_title = '${title}', post_author = '${author}', post_text = '${text}' WHERE post_id=${id}`)
@@ -65,8 +93,24 @@ const getAddPost = (req, res) => {
 }
 
 const addPost = (req, res) => {
+  // res.setHeader('content-type', 'text/html;charset=utf-8');
   const { title, author, text } = req.body;
-  pool.query(`INSERT INTO posts (post_title, post_author, post_text) VALUES ('${title}', '${author}', '${text}');`)
+
+  let newFileName = 'no-image.png';
+  let uploadPath = '/images/';
+  if (req.files?.imgfile) {
+    console.log('req.files: ', req.files)
+    newFileName = (Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name;
+    uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей дериктории), а сюда в корневую папку "public/uploads" (слово "public" можно не нужно указывать) будет дублировать по настройкам компоузера. 
+    req.files.imgfile.mv('/app/uploads/'+newFileName, function(err) {
+      if (err) {
+        console.log('err: ', err)
+        return res.status(500).send(err);
+      }
+    });
+  }
+ 
+  pool.query(`INSERT INTO posts (post_title, post_author, post_text , post_imglink) VALUES ('${title}', '${author}', '${text}', '${uploadPath+newFileName}');`)
   .then(() => res.redirect('/posts'))
   .catch(e => console.error(e.stack))
 }

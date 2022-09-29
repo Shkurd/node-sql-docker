@@ -6,6 +6,10 @@
 Пример подключения из ноды https://overcoder.net/q/9686/%D0%BA%D0%B0%D0%BA-%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B8%D1%82%D1%8C%D1%81%D1%8F-%D0%BA-postgres-%D1%87%D0%B5%D1%80%D0%B5%D0%B7-nodejs
 https://node-postgres.com/features/queries
 
+Дока загрузчика файлов https://www.npmjs.com/package/express-fileupload
+https://dmitrytinitilov.gitbooks.io/strange-javascript/content/express/file_uploading_on_express.html
+Загрузка файлов в докере(т.к. грузятся внутрь контейнера) и дублирование их в рабочую директорию проекта https://www.youtube.com/watch?v=SS_jyY-9Le8
+
 
 пример запроса на создание базовой информации в таблицу PGAdmin (но можно и через админку на 5050 порту)
 
