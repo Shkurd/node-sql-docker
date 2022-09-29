@@ -99,7 +99,7 @@ const addPost = (req, res) => {
   if (req.files?.imgfile) {
     console.log('req.files: ', req.files)
     newFileName = (Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name;
-    uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей дериктории), а сюда в корневую папку public/uploads (слово public можно не нужно указывать) будет дублировать по настройкам компоузера. 
+    uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей дериктории), а сюда в корневую папку "public/uploads" (слово "public" можно не нужно указывать) будет дублировать по настройкам компоузера. 
     req.files.imgfile.mv('/app/uploads/'+newFileName, function(err) {
       if (err) {
         console.log('err: ', err)

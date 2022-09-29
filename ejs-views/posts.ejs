@@ -2,29 +2,31 @@
 <html lang="en">
   <%- include('./partials/head.ejs') %>
 <body>
-  <%- include('./partials/nav.ejs') %>
-  <h1>Posts:</h1>
-  <ul>
-    <% if (posts.length) { %>
-      <% posts.forEach(({ post_id, post_title, post_text, post_author, post_date }) => { %>
-        <li>
-          <article>
-            <h2>
-              <a href="/posts/<%= post_id %>"><%= post_title %></a>
-            </h2>
-            <p><%= post_text %></p>
-            <div class="info">
-              <span><small>Date:</small> <%= post_date.toLocaleDateString('en', {year: 'numeric', month: 'long', day: 'numeric'}) %></span>
-              <span><%= post_author %></span>
-            </div>
-            <button class="btn-delete" data-id="<%= post_id %>">
-              <i class="fas fa-trash-alt" data-id="<%= post_id %>"></i>
-            </button>
-          </article>
-        </li>
-      <% }) %>
-    <% } %>
-  </ul>
+  <%- include('./partials/header.ejs') %>
+  <main>
+    <h1>Posts:</h1>
+    <ul>
+      <% if (posts.length) { %>
+        <% posts.forEach(({ post_id, post_title, post_text, post_author, post_date }) => { %>
+          <li>
+            <article>
+              <h2>
+                <a href="/posts/<%= post_id %>"><%= post_title %></a>
+              </h2>
+              <p><%= post_text %></p>
+              <div class="info">
+                <span><small>Date:</small> <%= post_date.toLocaleDateString('en', {year: 'numeric', month: 'long', day: 'numeric'}) %></span>
+                <span><%= post_author %></span>
+              </div>
+              <button class="btn-delete" data-id="<%= post_id %>">
+                <i class="fas fa-trash-alt" data-id="<%= post_id %>"></i>
+              </button>
+            </article>
+          </li>
+        <% }) %>
+      <% } %>
+    </ul>
+  </main>  
 
   <script>
     document.addEventListener('click', (e) => {
@@ -38,5 +40,6 @@
       }
     });
   </script>
+  <%- include('./partials/footer.ejs') %>
 </body>
 </html>

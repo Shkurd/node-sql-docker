@@ -2,29 +2,32 @@
 <html lang="en">
   <%- include('./partials/head.ejs') %>
 <body>
-  <%- include('./partials/nav.ejs') %>
-  <form id="post-form" method="post" action="/add-post" enctype="multipart/form-data">
-    <div class="form-info">
-      <label>Post Title
-        <input type="text" name="title"  required="required">
-      </label>
-      <label>Author
-        <input type="text" name="author"  required="required">
-      </label>
-    </div>
-    <div class="form-text">
-      <label>Post Text
-        <textarea name="text"  required="required"></textarea>
-      </label>
-    </div>
-    <div class="form-file">
-      <label>Choose a main picture
-        <input type="file" id="imgfile" name="imgfile" accept="image/png, image/jpeg">
-      </label>
-    </div>
-    <div class="form-button">
-      <input type="submit" value="Submit">
-    </div>
-  </form>
+  <%- include('./partials/header.ejs') %>
+  <main>
+    <form id="post-form" method="post" action="/add-post" enctype="multipart/form-data">
+      <div class="form-info">
+        <label>Post Title
+          <input type="text" name="title"  required="required">
+        </label>
+        <label>Author
+          <input type="text" name="author"  required="required">
+        </label>
+      </div>
+      <div class="form-text">
+        <label>Post Text
+          <textarea name="text"  required="required"></textarea>
+        </label>
+      </div>
+      <div class="form-file">
+        <label>Choose a main picture
+          <input type="file" id="imgfile" name="imgfile" accept="image/png, image/jpeg">
+        </label>
+      </div>
+      <div class="form-button">
+        <input type="submit" value="Submit">
+      </div>
+    </form>
+  </main>
+  <%- include('./partials/footer.ejs') %>
 </body>
 </html>
