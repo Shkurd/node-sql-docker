@@ -65,6 +65,16 @@ article {
   gap: 50px;
 }
 
+.post__img-wrap {
+  max-width: 600px;
+}
+
+.post__img-wrap img{
+  width: 100%;
+  aspect-ratio: 3/2;
+  object-fit: cover;
+}
+
 h2 a {
   color: aqua;
 }

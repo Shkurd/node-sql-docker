@@ -24,7 +24,7 @@ app.use(fileUpload({
   limits: { fileSize: 50 * 1024 * 1024 },
 }));
 app.use(express.static('public'));
-// app.use(methodOverride('_method'));
+app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
   const title = 'Home';

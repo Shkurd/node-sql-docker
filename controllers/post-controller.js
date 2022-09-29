@@ -93,21 +93,22 @@ const getAddPost = (req, res) => {
 const addPost = (req, res) => {
   // res.setHeader('content-type', 'text/html;charset=utf-8');
   const { title, author, text } = req.body;
-  console.log('req.files ',req.files);
-  console.log('req.files.imgfile ', req.files.imgfile);
-   if (req.files) {
-    // const { file } = req.files.imgfile;
-    // req.files.imgfile.mv('/public/uploads/'+(Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name);
-    let uploadPath = '/app/uploads/'+(Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей дериктории), а сюда в корневую папку public/uploads будет дублировать по настройкам компоузера. 
-    req.files.imgfile.mv(uploadPath, function(err) {
+
+  let newFileName = 'no-image.png';
+  let uploadPath = '/images/';
+  if (req.files?.imgfile) {
+    console.log('req.files: ', req.files)
+    newFileName = (Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name;
+    uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей дериктории), а сюда в корневую папку public/uploads (слово public можно не нужно указывать) будет дублировать по настройкам компоузера. 
+    req.files.imgfile.mv('/app/uploads/'+newFileName, function(err) {
       if (err) {
+        console.log('err: ', err)
         return res.status(500).send(err);
       }
-      console.log('uploadPath', uploadPath)
     });
   }
  
-  pool.query(`INSERT INTO posts (post_title, post_author, post_text) VALUES ('${title}', '${author}', '${text}');`)
+  pool.query(`INSERT INTO posts (post_title, post_author, post_text , post_imglink) VALUES ('${title}', '${author}', '${text}', '${uploadPath+newFileName}');`)
   .then(() => res.redirect('/posts'))
   .catch(e => console.error(e.stack))
 }
