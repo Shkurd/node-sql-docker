@@ -66,6 +66,8 @@ const getEditPost = (req, res) => {
 }
 
 const editPost = (req, res) => {
+  console.log('req.body:', req.body);
+  console.log('req.params:', req.params);
   const { title, author, text } = req.body;
   const { id } = req.params;
   pool.query(`UPDATE posts SET post_title = '${title}', post_author = '${author}', post_text = '${text}' WHERE post_id=${id}`)

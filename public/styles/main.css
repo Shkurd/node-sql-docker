@@ -72,6 +72,44 @@ article {
   gap: 50px;
 }
 
+.posts__content-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.posts__img-wrap {
+  max-width: 300px;
+
+  @media only screen and (max-width: 991.98px) {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.posts__img-wrap img{
+  width: 100%;
+  aspect-ratio: 3/2;
+  object-fit: cover;
+}
+
+.posts__info-wrap {
+  padding-left: 30px;
+  flex: 1;
+
+  @media only screen and (max-width: 991.98px) {
+    width: 100%;
+    padding-left: 0;
+  }
+}
+
+.posts__info-wrap p{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .post__img-wrap {
   max-width: 600px;
 }

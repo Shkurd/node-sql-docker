@@ -7,20 +7,25 @@
     <h1>Posts:</h1>
     <ul>
       <% if (posts.length) { %>
-        <% posts.forEach(({ post_id, post_title, post_text, post_author, post_date }) => { %>
+        <% posts.forEach(({ post_id, post_title, post_text, post_author, post_date, post_imglink }) => { %>
           <li>
-            <article>
-              <h2>
-                <a href="/posts/<%= post_id %>"><%= post_title %></a>
-              </h2>
-              <p><%= post_text %></p>
-              <div class="info">
-                <span><small>Date:</small> <%= post_date.toLocaleDateString('en', {year: 'numeric', month: 'long', day: 'numeric'}) %></span>
-                <span><%= post_author %></span>
+            <article class="posts__content-wrap">
+              <div class="posts__img-wrap">
+                <img class="lazy" data-src="<%= post_imglink %>" alt="post main img">
               </div>
-              <button class="btn-delete" data-id="<%= post_id %>">
-                <i class="fas fa-trash-alt" data-id="<%= post_id %>"></i>
-              </button>
+              <div class="posts__info-wrap">
+                <h2>
+                  <a href="/posts/<%= post_id %>"><%= post_title %></a>
+                </h2>
+                <p><%= post_text %></p>
+                <div class="info">
+                  <span><small>Date:</small> <%= post_date.toLocaleDateString('en', {year: 'numeric', month: 'long', day: 'numeric'}) %></span>
+                  <span><%= post_author %></span>
+                </div>
+                <button class="btn-delete" data-id="<%= post_id %>">
+                  <i class="fas fa-trash-alt" data-id="<%= post_id %>"></i>
+                </button>
+              </div>
             </article>
           </li>
         <% }) %>
