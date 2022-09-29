@@ -7,7 +7,7 @@ body {
   color: #fff;
   display: flex;
   flex-direction: column;
-  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 main {
@@ -211,8 +211,12 @@ textarea {
 }
 
 footer {
-  padding:20px;
+  padding:25px 20px;
   background-color: rgba(0, 0, 0, 0.7);
   margin-left: -8px;
   margin-right: -8px;
+}
+
+footer .footer__content, footer .footer__content a {
+  font-size: 12px;
 }

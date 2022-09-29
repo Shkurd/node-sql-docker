@@ -11,7 +11,7 @@
       </div>
       <h1><%= post.post_title %></h1>
       <div class="post__img-wrap">
-        <img src="<%= post.post_imglink %>" alt="post main img">
+        <img class="lazy" data-src="<%= post.post_imglink %>" alt="post main img">
       </div>
       <p><%= post.post_text %></p>
       <a href="/edit/<%= post.post_id %>" class="btn-edit">
