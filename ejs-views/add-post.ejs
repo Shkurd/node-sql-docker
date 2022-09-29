@@ -38,15 +38,14 @@
       let submitbutton = document.getElementById('submitbutton');
       let dialog = document.getElementById('dialog');
       submitbutton.onclick = () => {
-        let inputs = document.querySelectorAll(input[required="required"])
+        let inputs = document.querySelectorAll('[required="required"]')
+        let chekfields = true
         inputs.forEach((input)=>{
-          if (input.value == '') {
-            console.log('поле не заполнено');
-          } else {
-            dialog.showModal();
+          if (input.value.trim() == '') {
+            chekfields = false
           }
         })
-        
+        chekfields ? dialog.showModal() : console.log('field value empty');
       }
     </script>
 

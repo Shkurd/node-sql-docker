@@ -111,8 +111,7 @@ const addPost = (req, res) => {
   }
  
   pool.query(`INSERT INTO posts (post_title, post_author, post_text , post_imglink) VALUES ('${title}', '${author}', '${text}', '${uploadPath+newFileName}');`)
-  .then(() => console.log('aaa'))
-  // .then(() => res.redirect('/posts'))
+  .then(() => res.redirect('/posts'))
   .catch(e => console.error(e.stack))
 }
 
