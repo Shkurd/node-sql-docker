@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 
 app.use(postRoutes);
 app.use(postApiRoutes);
-// app.use(contactRoutes);
+app.use(contactRoutes);
 
 app.use((req, res) => {
   const title = 'Error Page';

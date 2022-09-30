@@ -18,10 +18,36 @@
           <textarea name="text" required="required"><%= post.post_text %></textarea>
         </label>
       </div>
+      <div class="form-file">
+        <label>Choose a main picture
+          <input type="file" id="imgfile" name="imgfile" accept="image/png, image/jpeg">
+        </label>
+      </div>
       <div class="form-button">
         <input type="submit" value="Submit">
       </div>
     </form>
+
+    <!-- спиннер -->
+    <dialog id="dialog" class="spinner-wrap">
+      <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </dialog>
+
+    <!-- логика открытия спиннера -->
+    <script>
+      let submitbutton = document.getElementById('submitbutton');
+      let dialog = document.getElementById('dialog');
+      submitbutton.onclick = () => {
+        let inputs = document.querySelectorAll('[required="required"]')
+        let chekfields = true
+        inputs.forEach((input)=>{
+          if (input.value.trim() == '') {
+            chekfields = false
+          }
+        })
+        chekfields ? dialog.showModal() : console.log('field value empty');
+      }
+    </script>
   <main>
   <%- include('./partials/footer.ejs') %>
 </body>
