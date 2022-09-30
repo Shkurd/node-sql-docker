@@ -1,7 +1,6 @@
 
 const express = require('express');
 const cors = require('cors');
-const morgan = require('morgan');
 const methodOverride = require('method-override');
 const postRoutes = require('./routes/post-routes');
 const postApiRoutes = require('./routes/api-post-routes');
