@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('partials/header') -%>
+  <%- include('./partials/head.ejs') %>
 <body>
-  <%- include('./partials/nav.ejs') %>
+  <%- include('./partials/header.ejs') %>
   <main>
     <h1>Contacts:</h1>
     <ul>
       <% if (contacts.length) { %>
-        <% contacts.forEach(({ link, name }) => { %>
+        <% contacts.forEach(({ contact_link, contact_name }) => { %>
           <li>
-            <a href="<%= link %>"><%= name %></a>
+            <a href="<%= contact_link, %>"><%= contact_name %></a>
           </li>
         <% }) %>
       <% } %>
