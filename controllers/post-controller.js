@@ -36,8 +36,6 @@ const getEditPost = (req, res) => {
 }
 
 const editPost = (req, res) => {
-  console.log('req.body:', req.body);
-  console.log('req.params:', req.params);
   const { title, author, text } = req.body;
   const { id } = req.params;
 
@@ -84,7 +82,6 @@ const getAddPost = (req, res) => {
 }
 
 const addPost = (req, res) => {
-  // res.setHeader('content-type', 'text/html;charset=utf-8');
   const { title, author, text } = req.body;
 
   let newFileName = 'no-image.png';

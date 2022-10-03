@@ -14,9 +14,31 @@ const getPosts = (req, res) => {
 }
 
 const addPost = (req, res) => {
-  const {title, author, text } = req.body;
-  pool.query(`INSERT INTO posts (post_title, post_author, post_text) VALUES ('${title}', '${author}', '${text}');`)
-  .then(() => res.status(200).json({title, author, text}))
+  // const {title, author, text } = req.body;
+  // pool.query(`INSERT INTO posts (post_title, post_author, post_text) VALUES ('${title}', '${author}', '${text}');`)
+  // .then(() => res.status(200).json({title, author, text}))
+  // .catch(e => console.error(e.stack))
+
+  const { title, author, text } = req.body;
+
+  let newFileName = 'no-image.png';
+  let uploadPath = '/images/';
+  if (req.files?.imgfile) {
+    console.log('req.files: ', req.files)
+    newFileName = (Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name;
+    uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей дериктории), а сюда в корневую папку "public/uploads" (слово "public" можно не нужно указывать) будет дублировать по настройкам компоузера. 
+    req.files.imgfile.mv('/app/uploads/'+newFileName, function(err) {
+      if (err) {
+        console.log('err: ', err)
+        return res.status(500).send(err);
+      }
+    });
+  }
+
+  let imgpath = uploadPath+newFileName;
+
+  pool.query(`INSERT INTO posts (post_title, post_author, post_text , post_imglink) VALUES ('${title}', '${author}', '${text}', '${uploadPath+newFileName}');`)
+  .then(() => res.status(200).json({title, author, text, imgpath}))
   .catch(e => console.error(e.stack))
 }
 
@@ -41,9 +63,33 @@ const editPost = (req, res) => {
   const { title, author, text } = req.body;
   const { id } = req.params;
   
-  pool.query(`UPDATE posts SET post_title = '${title}', post_author = '${author}', post_text = '${text}' WHERE post_id=${id}`)
-  .then(() => res.json(post))
-  .catch(e => console.error(e.stack))
+  // pool.query(`UPDATE posts SET post_title = '${title}', post_author = '${author}', post_text = '${text}' WHERE post_id=${id}`)
+  // .then(() => res.json(post))
+  // .catch(e => console.error(e.stack))
+
+  if (req.files?.imgfile) {
+    let newFileName = 'no-image.png';
+    let uploadPath = '/images/';
+    console.log('req.files: ', req.files)
+    newFileName = (Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name;
+    uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей дериктории), а сюда в корневую папку "public/uploads" (слово "public" можно не нужно указывать) будет дублировать по настройкам компоузера. 
+    req.files.imgfile.mv('/app/uploads/'+newFileName, function(err) {
+      if (err) {
+        console.log('err: ', err)
+        return res.status(500).send(err);
+      }
+    });
+
+    // pool.query(`INSERT INTO posts (post_title, post_author, post_text , post_imglink) VALUES ('${title}', '${author}', '${text}', '${uploadPath+newFileName}');`)
+    pool.query(`UPDATE posts SET post_title = '${title}', post_author = '${author}', post_text = '${text}', post_imglink = '${uploadPath+newFileName}' WHERE post_id=${id}`)
+    .then(() => res.json(post))
+    .catch(e => console.error(e.stack))
+    
+  } else {
+    pool.query(`UPDATE posts SET post_title = '${title}', post_author = '${author}', post_text = '${text}' WHERE post_id=${id}`)
+    .then(() => res.json(post))
+    .catch(e => console.error(e.stack))
+  }
 }
 
 module.exports = {
