@@ -5,8 +5,8 @@ services:
     build: .
     ports:
       - '5000:5000'
-    links:
-      - postgres
+    # links:
+    #   - postgres
     environment:
       - UPLOAD_PATH=/public/uploads
       - UPLOADED_PATH=/app/uploads
