@@ -1,5 +1,8 @@
 
-ПРИМЕРЫ:
+ИНФО:
+
+Про доке в целом https://habr.com/ru/post/310460/
+
 Конфигурация компоузера (ghbvth) https://habr.com/ru/post/578744/
 Создание сервера и работа в PGAdmin https://linuxhint.com/postgresql_docker/
 Создание данных в таблице в PGAdmin https://www.youtube.com/watch?v=h5wgbJiSy7Q  (генерация даты: CURRENT_DATE в дефолтном поле вносится, не в генерации)
@@ -10,14 +13,6 @@ https://node-postgres.com/features/queries
 https://dmitrytinitilov.gitbooks.io/strange-javascript/content/express/file_uploading_on_express.html
 Загрузка файлов в докере(т.к. грузятся внутрь контейнера) и дублирование их в рабочую директорию проекта https://www.youtube.com/watch?v=SS_jyY-9Le8
 
-
-пример запроса на создание базовой информации в таблицу PGAdmin (но можно и через админку на 5050 порту)
-
-INSERT INTO posts  (post_title, post_text, post_author)
-VALUES
-('заголовок поста 1', 'текст поста 1', 'Антон Шкурдов'),
-('заголовок поста 2', 'текст поста 2', 'Антон Шкурдов'),
-('заголовок поста 3', 'текст поста 3', 'Антон Шкурдов')
 
 В ноде можно протестить и получить данные
 testdb.js:

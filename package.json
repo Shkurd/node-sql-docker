@@ -24,7 +24,6 @@
     "express-fileupload": "^1.4.0",
     "knex": "^0.21.18",
     "method-override": "^3.0.0",
-    "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "pg": "^8.5.1"
   }
