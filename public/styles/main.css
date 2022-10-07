@@ -267,6 +267,9 @@ footer .footer__content, footer .footer__content a {
   font-size: 12px;
 }
 
+.link {
+  color: aqua;
+}
 
 
 /*css for loader*/
