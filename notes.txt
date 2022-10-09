@@ -14,6 +14,7 @@ https://www.youtube.com/watch?v=d_aJdcDq6AY&t=2s
 https://www.npmjs.com/package/crypto-js
 
 Видео по использованию https://www.youtube.com/watch?v=-RCnNyD0L-s
+Видео по использованию 2 https://www.youtube.com/watch?v=6FOq4cUdH8k&list=PLofu_3Ez7vPndY3r-iCRXVBAJS4yoDn_9&index=17
 
 express-session https://www.npmjs.com/package/express-session
 express-flash https://www.npmjs.com/package/express-flash

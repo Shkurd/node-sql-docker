@@ -1,6 +1,7 @@
 const createPath = require('../helpers/create-path');
 const pool = require('../helpers/db');
 const CryptoJS = require("crypto-js");
+const passport = require('passport');
 
 const exist = (req, res) => {
   const title = 'Exist';
@@ -50,11 +51,23 @@ const login = (req, res) => {
     .render(createPath('login'), { title });
   };
 
+// const loginPost = (req, res) => {
+//   console.log('loginPost: loginPost отработал')
+// }
 
+// Login
+const loginPost =  (req, res, next) => {
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+  })(req, res, next);
+};
 
 module.exports = {
     registration,
     registrationPost,
     login,
+    loginPost,
     exist
 };

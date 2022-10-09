@@ -13,6 +13,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 
 const initializePassport = require('./helpers/passport-config');
+initializePassport(passport);
 
 
 const app = express();
@@ -30,13 +31,28 @@ app.use(fileUpload({
   limits: { fileSize: 50 * 1024 * 1024 },
 }));
 app.use(express.json());
+
 app.use(express.urlencoded({ extended: true }))
 app.use(flash())
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false
-}))
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  })
+);
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Global variables
+app.use(function(req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
+
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
 
