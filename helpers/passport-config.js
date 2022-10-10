@@ -8,8 +8,9 @@ function initialize(passport) {
     pool.query(`SELECT * FROM users WHERE user_name='${username}'`)
     .then((response) => {
       let user = response.rows[0]
-      if(user.user_name === username){
-        var bytes = CryptoJS.AES.decrypt(user.user_password, 'my-secret-key');
+      let userClone = { ...user }
+      if(userClone.user_name == username){
+        var bytes = CryptoJS.AES.decrypt(userClone.user_password, 'my-secret-key');
         var originalPassword = bytes.toString(CryptoJS.enc.Utf8);
         if (originalPassword === password) {
           return cb(null, user)
@@ -18,6 +19,7 @@ function initialize(passport) {
         }
       } else {
         console.log('something wrong with passport-config.js')
+        return cb(null, false, { message: 'Username incorrect' })
       }
     })
     .catch(e => console.error(e.stack));
@@ -28,9 +30,8 @@ function initialize(passport) {
     console.log('serializeUser', user)
     process.nextTick(function() {
       return cb(null, {
-        id: user.id,
-        username: user.username,
-        picture: user.picture
+        id: user.user_name,
+        username: user.user_name
       });
     });
   });

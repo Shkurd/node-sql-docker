@@ -9,7 +9,7 @@ const authRoutes = require('./routes/auth-routes');
 const createPath = require('./helpers/create-path');
 const fileUpload = require('express-fileupload');
 const session = require('express-session');
-const flash = require('connect-flash');
+const flash = require('express-flash');
 const passport = require('passport');
 
 const initializePassport = require('./helpers/passport-config');
@@ -32,24 +32,27 @@ app.use(fileUpload({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
-app.use(flash())
+// app.use(express.cookieParser('keyboard cat'));
 // Express session
 app.use(session({
   secret: 'secret',
   resave: true,
   saveUninitialized: true
+  // cookie: { maxAge: 60000 }
 }));
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Connect flash
+app.use(flash())
 // Global variables
-app.use(function(req, res, next) {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
-  next();
-});
+// app.use(function(req, res, next) {
+//   res.locals.success_msg = req.flash('success_msg');
+//   res.locals.error_msg = req.flash('error_msg');
+//   res.locals.error = req.flash('error');
+//   next();
+// });
 
 app.use(express.static('public'));
 app.use(methodOverride('_method'));

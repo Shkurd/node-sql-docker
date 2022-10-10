@@ -214,6 +214,10 @@ textarea {
   padding-top: 0;
 }
 
+.error__msg {
+  color: red;
+}
+
 .error h1 {
   margin-top: 0;
 }

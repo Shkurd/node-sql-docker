@@ -1,4 +1,10 @@
 const express = require('express');
+
+const {
+  ensureAuthenticated,
+  forwardAuthenticated
+ } = require('../helpers/auth');
+
 const {
   getPost, 
   deletePost,

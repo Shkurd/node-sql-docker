@@ -1,9 +1,7 @@
 
 const express = require('express');
-// const session = require('express-session');
-// const flash = require('connect-flash');
-// const initializePassport = require('../helpers/passport-config');
-// initializePassport(passport);
+
+const { forwardAuthenticated } = require('../helpers/auth');
 
 const {
     registration,

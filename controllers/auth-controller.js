@@ -13,14 +13,29 @@ const exist = (req, res) => {
 
 const registration = (req, res) => {
   const title = 'Registration';
+  let errors = [];
   res
   .status(404)
-  .render(createPath('registration'), { title });
+  .render(createPath('registration'), { title, errors });
 };
 
 const registrationPost = (req, res) => {
-  let {username, password} = req.body
-  let contacts = null
+  const {username, password} = req.body
+  const title = 'Registration';
+  let errors = [];
+
+  if (!username.trim() || !password.trim()) {
+    errors.push({ msg: 'Please enter all fields' });
+    if (errors.length) {
+      createPath('registration'), { 
+        title, 
+        errors
+      };
+    }
+    req.flash('success_msg', 'You are logged out');
+    res.render(createPath('registration'), { title, errors });
+    return
+  }
 
   pool.query(`SELECT * FROM users WHERE user_name='${username}'`)
   .then((response) => {
@@ -30,6 +45,12 @@ const registrationPost = (req, res) => {
     } else {
         let cipherpassword = CryptoJS.AES.encrypt(password, 'my-secret-key').toString();
         pool.query(`INSERT INTO users (user_name, user_password) VALUES ('${username}', '${cipherpassword}');`)
+        // .then(() => {
+        //   req.flash(
+        //     'success_msg',
+        //     'You are now registered and can log in'
+        //   );
+        // })
         .then(() => res.redirect('/login'))
         .catch(e => console.error(e.stack))
     }
@@ -39,7 +60,7 @@ const registrationPost = (req, res) => {
 
 const login = (req, res) => {
     const title = 'Login';
-    let contacts = null
+    // req.flash('info', 'Flash Message Added');
     res
     .status(404)
     .render(createPath('login'), { title });
