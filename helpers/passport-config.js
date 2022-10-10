@@ -4,7 +4,7 @@ const pool = require('../helpers/db');
 
 function initialize(passport) {
 
-  passport.use(new LocalStrategy(function verify(username, password, done) {
+  passport.use(new LocalStrategy(function verify(username, password, cb) {
     console.log('base username', username)
     console.log('base password', password)
     pool.query(`SELECT * FROM users WHERE user_name='${username}'`)
@@ -17,25 +17,43 @@ function initialize(passport) {
         var originalPassword = bytes.toString(CryptoJS.enc.Utf8);
         if (originalPassword === password) {
           console.log('originalPassword === password')
-          return done(null, user)
+          return cb(null, user)
         } else {
-          return done(null, false, { message: 'Password incorrect' })
+          return cb(null, false, { message: 'Password incorrect' })
         }
       } else {
-        c
+        console.log('something wrong with passport')
       }
     })
     .catch(e => console.error(e.stack));
 
   }));
   
-  passport.serializeUser(function(user, done) {
-    done(null, user.id);
-  });
+  // passport.serializeUser(function(user, done) {
+  //   done(null, user.id);
+  // });
 
-  passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
-      done(err, user);
+  // passport.deserializeUser(function(id, done) {
+  //   User.findById(id, function(err, user) {
+  //     done(err, user);
+  //   });
+  // });
+
+  passport.serializeUser(function(user, cb) {
+    console.log('serializeUser', user)
+    process.nextTick(function() {
+      return cb(null, {
+        id: user.id,
+        username: user.username,
+        picture: user.picture
+      });
+    });
+  });
+  
+  passport.deserializeUser(function(user, cb) {
+    console.log('deserializeUser', user)
+    process.nextTick(function() {
+      return cb(null, user);
     });
   });
 }
