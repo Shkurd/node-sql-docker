@@ -42,7 +42,6 @@ const editPost = (req, res) => {
   if (req.files?.imgfile) {
     let newFileName = 'no-image.png';
     let uploadPath = '/images/';
-    console.log('req.files: ', req.files)
     newFileName = (Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name;
     uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей директории), а сюда в корневую папку "public/uploads" (слово "public" можно не нужно указывать) будет дублировать по настройкам компоузера. 
     req.files.imgfile.mv('/app/uploads/'+newFileName, function(err) {
@@ -86,7 +85,6 @@ const addPost = (req, res) => {
   let newFileName = 'no-image.png';
   let uploadPath = '/images/';
   if (req.files?.imgfile) {
-    console.log('req.files: ', req.files)
     newFileName = (Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name;
     uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей директории), а сюда в корневую папку "public/uploads" (слово "public" не нужно указывать) будет дублировать по настройкам компоузера. 
     req.files.imgfile.mv('/app/uploads/'+newFileName, function(err) {

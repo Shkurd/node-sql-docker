@@ -40,20 +40,11 @@ const registrationPost = (req, res) => {
 const login = (req, res) => {
     const title = 'Login';
     let contacts = null
-    // pool.query("SELECT * FROM contacts")
-    // .then((response) => {
-    //   contacts = response.rows;
-    // })
-    // .then(() => res.render(createPath('login'), { contacts, title }))
-    // .catch(e => console.error(e.stack))
     res
     .status(404)
     .render(createPath('login'), { title });
   };
 
-// const loginPost = (req, res) => {
-//   console.log('loginPost: loginPost отработал')
-// }
 
 // Login
 const loginPost =  (req, res, next) => {
@@ -66,7 +57,6 @@ const loginPost =  (req, res, next) => {
 
 // Logout
 const logout = (req, res, next) => {
-  console.log('logout')
   req.logout(function(err) {
     if (err) { return next(err); }
     req.flash('success_msg', 'You are logged out');
