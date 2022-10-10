@@ -64,10 +64,22 @@ const loginPost =  (req, res, next) => {
   })(req, res, next);
 };
 
+// Logout
+const logout = (req, res, next) => {
+  console.log('logout')
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    req.flash('success_msg', 'You are logged out');
+    res.redirect('/login');
+  });
+
+};
+
 module.exports = {
     registration,
     registrationPost,
     login,
     loginPost,
+    logout,
     exist
 };

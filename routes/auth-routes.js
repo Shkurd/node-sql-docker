@@ -10,6 +10,7 @@ const {
     registrationPost,
     login,
     loginPost,
+    logout,
     exist
   } = require('../controllers/auth-controller');
 
@@ -19,6 +20,7 @@ router.get('/registration', registration);
 router.post('/registration', registrationPost);
 router.get('/login', login);
 router.post('/login', loginPost);
+router.get('/logout', logout);
 router.get('/exist', exist);
 
 module.exports = router;
