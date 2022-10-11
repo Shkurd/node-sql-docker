@@ -5,12 +5,13 @@ const pool = require('../helpers/db');
 
 const getPost = async (req, res) => {
   const title = 'Post';
+  const username = req?.user?.username || null;
   let post = null
   pool.query(`SELECT * FROM posts WHERE post_id=${req.params.id}`)
   .then((response) => {
     post = response.rows[0];
   })
-  .then(() => res.render(createPath('post'), { post, title }))
+  .then(() => res.render(createPath('post'), { post, title, username }))
   .catch(e => console.error(e.stack))
 
 }
@@ -24,13 +25,13 @@ const deletePost = (req, res) => {
 
 const getEditPost = (req, res) => {
   const title = 'Edit post';
-
+  const username = req?.user?.username || null;
   let post = null
   pool.query(`SELECT * FROM posts WHERE post_id=${req.params.id}`)
   .then((response) => {
     post = response.rows[0];
   })
-  .then(() => res.render(createPath('edit-post'), { post, title }))
+  .then(() => res.render(createPath('edit-post'), { post, title, username }))
   .catch(e => console.error(e.stack))
 
 }
@@ -42,9 +43,8 @@ const editPost = (req, res) => {
   if (req.files?.imgfile) {
     let newFileName = 'no-image.png';
     let uploadPath = '/images/';
-    console.log('req.files: ', req.files)
     newFileName = (Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name;
-    uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей дериктории), а сюда в корневую папку "public/uploads" (слово "public" можно не нужно указывать) будет дублировать по настройкам компоузера. 
+    uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей директории), а сюда в корневую папку "public/uploads" (слово "public" можно не нужно указывать) будет дублировать по настройкам компоузера. 
     req.files.imgfile.mv('/app/uploads/'+newFileName, function(err) {
       if (err) {
         console.log('err: ', err)
@@ -52,7 +52,6 @@ const editPost = (req, res) => {
       }
     });
 
-    // pool.query(`INSERT INTO posts (post_title, post_author, post_text , post_imglink) VALUES ('${title}', '${author}', '${text}', '${uploadPath+newFileName}');`)
     pool.query(`UPDATE posts SET post_title = '${title}', post_author = '${author}', post_text = '${text}', post_imglink = '${uploadPath+newFileName}' WHERE post_id=${id}`)
     .then(() => res.redirect('/posts'))
     .catch(e => console.error(e.stack))
@@ -67,18 +66,20 @@ const editPost = (req, res) => {
 
 const getPosts = (req, res) => {
   const title = 'Posts';
+  const username = req?.user?.username || null;
     let posts = null
     pool.query("SELECT * FROM posts ORDER BY post_id DESC")
     .then((response) => {
       posts = response.rows;
     })
-    .then(() => res.render(createPath('posts'), { posts, title }))
+    .then(() => res.render(createPath('posts'), { posts, title, username }))
     .catch(e => console.error(e.stack))
 }
 
 const getAddPost = (req, res) => {
   const title = 'Add Post';
-  res.render(createPath('add-post'), { title });
+  const username = req?.user?.username || null;
+  res.render(createPath('add-post'), { title, username });
 }
 
 const addPost = (req, res) => {
@@ -87,9 +88,8 @@ const addPost = (req, res) => {
   let newFileName = 'no-image.png';
   let uploadPath = '/images/';
   if (req.files?.imgfile) {
-    console.log('req.files: ', req.files)
     newFileName = (Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name;
-    uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей дериктории), а сюда в корневую папку "public/uploads" (слово "public" можно не нужно указывать) будет дублировать по настройкам компоузера. 
+    uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей директории), а сюда в корневую папку "public/uploads" (слово "public" не нужно указывать) будет дублировать по настройкам компоузера. 
     req.files.imgfile.mv('/app/uploads/'+newFileName, function(err) {
       if (err) {
         console.log('err: ', err)

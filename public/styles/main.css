@@ -1,6 +1,6 @@
 body {
-  padding-top: 80px;
-  min-height: calc(100vh - 90px);
+  padding-top: 110px;
+  min-height: calc(100vh - 100px);
   font-family: "Montserrat", sans-serif;
   font-size: 20px;
   background: linear-gradient(to bottom, #00d2ff, #928dab);
@@ -18,11 +18,14 @@ h1 {
   text-transform: uppercase;
 }
 
-nav {
+header {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
+}
+
+nav {
   min-height: 60px;
   display: flex;
   justify-content: flex-end;
@@ -211,6 +214,10 @@ textarea {
   padding-top: 0;
 }
 
+.error__msg {
+  color: red;
+}
+
 .error h1 {
   margin-top: 0;
 }
@@ -267,7 +274,23 @@ footer .footer__content, footer .footer__content a {
   font-size: 12px;
 }
 
+.link {
+  color: aqua;
+}
 
+.authInfo {
+  text-align: right;
+}
+
+.authInfo__wrap {
+  padding: 5px 20px;
+  background-color: rgba(0, 0, 0, 0.75);
+  font-size: 12px;
+}
+
+.authInfo a {
+  font-size: 12px;
+}
 
 /*css for loader*/
 

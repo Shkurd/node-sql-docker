@@ -1,4 +1,13 @@
 <header>
+  <div class="authInfo__wrap">
+    <div class="authInfo">
+        <% if (username) { %>
+          Hi, <%= username %>! <a class="link" href="/logout">logout</a>
+        <% } else { %>
+          <a class="link" href="/login">login</a> or <a class="link" href="/registration">Register</a>
+        <% } %>
+    </div>
+  </div>
   <nav>
     <ul>
       <li><a href="/">Home</a></li>

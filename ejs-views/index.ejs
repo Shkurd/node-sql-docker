@@ -6,6 +6,11 @@
   <main>
     <h1>Personal Blog</h1>
     <p>Build with Node.js Express, EJS, PostgreSQL</p>
+    <% if (username) { %>
+    <p>
+      Hi, <%= username %>
+    </p>
+    <% } %>
   </main>
   <%- include('./partials/footer.ejs') %>
 </body>

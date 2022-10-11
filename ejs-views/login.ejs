@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+<body>
+  <%- include('./partials/header.ejs') %>
+  <main>
+    <h1>Login:</h1>
+    <% if (messages.error) { %>
+    <div class="error__msg">
+      <%= messages.error %>
+    </div>
+    <% } %>
+    <form id="post-form" method="post" action="/login" enctype="multipart/form-data">
+      <div class="form-info">
+        <label>Username
+          <input type="text" name="username" required="required">
+        </label>
+        <label>Password
+          <input type="password" name="password"  required="required">
+        </label>
+      </div>
+      <div class="form-button">
+        <input id="submitbutton" type="submit" value="Login">
+      </div>
+    </form>
+    <br>
+    <div>
+        Or <a class="link" href="/registration">register</a>
+    </div>
+    <br>
+    <!-- спиннер -->
+    <dialog id="dialog" class="spinner-wrap">
+      <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </dialog>
+
+    <!-- логика открытия спиннера -->
+    <script>
+      let submitbutton = document.getElementById('submitbutton');
+      let dialog = document.getElementById('dialog');
+      submitbutton.onclick = () => {
+        let inputs = document.querySelectorAll('[required="required"]')
+        let chekfields = true
+        inputs.forEach((input)=>{
+          if (input.value.trim() == '') {
+            chekfields = false
+          }
+        })
+        chekfields ? dialog.showModal() : console.log('field value empty');
+      }
+    </script>
+
+    <!-- логика закрытия (в нашем случае не нужна, но для примера, если повесить на кнопку "закрыть модалку")
+      let closebutton = document.getElementById('closebutton');
+      closebutton.onclick = () => {
+        dialog.close()
+      }
+    -->
+
+    <!--
+      Стили для бэкдропа к тегу dialog в файле main css
+            dialog::backdrop {
+        background: rgba(0, 0, 0, 0.4);
+      }
+     -->
+
+  </main> 
+
+  <%- include('./partials/footer.ejs') %>
+</body>
+</html>

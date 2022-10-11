@@ -14,11 +14,6 @@ const getPosts = (req, res) => {
 }
 
 const addPost = (req, res) => {
-  // const {title, author, text } = req.body;
-  // pool.query(`INSERT INTO posts (post_title, post_author, post_text) VALUES ('${title}', '${author}', '${text}');`)
-  // .then(() => res.status(200).json({title, author, text}))
-  // .catch(e => console.error(e.stack))
-
   const { title, author, text } = req.body;
 
   let newFileName = 'no-image.png';
@@ -26,7 +21,7 @@ const addPost = (req, res) => {
   if (req.files?.imgfile) {
     console.log('req.files: ', req.files)
     newFileName = (Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name;
-    uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей дериктории), а сюда в корневую папку "public/uploads" (слово "public" можно не нужно указывать) будет дублировать по настройкам компоузера. 
+    uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей директории), а сюда в корневую папку "public/uploads" (слово "public" не нужно указывать) будет дублировать по настройкам компоузера. 
     req.files.imgfile.mv('/app/uploads/'+newFileName, function(err) {
       if (err) {
         console.log('err: ', err)
@@ -72,7 +67,7 @@ const editPost = (req, res) => {
     let uploadPath = '/images/';
     console.log('req.files: ', req.files)
     newFileName = (Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name;
-    uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей дериктории), а сюда в корневую папку "public/uploads" (слово "public" можно не нужно указывать) будет дублировать по настройкам компоузера. 
+    uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей директории), а сюда в корневую папку "public/uploads" (слово "public" можно не нужно указывать) будет дублировать по настройкам компоузера. 
     req.files.imgfile.mv('/app/uploads/'+newFileName, function(err) {
       if (err) {
         console.log('err: ', err)
