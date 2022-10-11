@@ -27,7 +27,6 @@ function initialize(passport) {
   }));
   
   passport.serializeUser(function(user, cb) {
-    console.log('serializeUser', user)
     process.nextTick(function() {
       return cb(null, {
         id: user.user_name,
@@ -37,7 +36,6 @@ function initialize(passport) {
   });
   
   passport.deserializeUser(function(user, cb) {
-    console.log('deserializeUser', user)
     process.nextTick(function() {
       return cb(null, user);
     });
