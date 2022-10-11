@@ -5,12 +5,13 @@ const pool = require('../helpers/db');
 
 const getPost = async (req, res) => {
   const title = 'Post';
+  const username = req?.user?.username || null;
   let post = null
   pool.query(`SELECT * FROM posts WHERE post_id=${req.params.id}`)
   .then((response) => {
     post = response.rows[0];
   })
-  .then(() => res.render(createPath('post'), { post, title }))
+  .then(() => res.render(createPath('post'), { post, title, username }))
   .catch(e => console.error(e.stack))
 
 }
@@ -24,13 +25,13 @@ const deletePost = (req, res) => {
 
 const getEditPost = (req, res) => {
   const title = 'Edit post';
-
+  const username = req?.user?.username || null;
   let post = null
   pool.query(`SELECT * FROM posts WHERE post_id=${req.params.id}`)
   .then((response) => {
     post = response.rows[0];
   })
-  .then(() => res.render(createPath('edit-post'), { post, title }))
+  .then(() => res.render(createPath('edit-post'), { post, title, username }))
   .catch(e => console.error(e.stack))
 
 }
@@ -65,18 +66,20 @@ const editPost = (req, res) => {
 
 const getPosts = (req, res) => {
   const title = 'Posts';
+  const username = req?.user?.username || null;
     let posts = null
     pool.query("SELECT * FROM posts ORDER BY post_id DESC")
     .then((response) => {
       posts = response.rows;
     })
-    .then(() => res.render(createPath('posts'), { posts, title }))
+    .then(() => res.render(createPath('posts'), { posts, title, username }))
     .catch(e => console.error(e.stack))
 }
 
 const getAddPost = (req, res) => {
   const title = 'Add Post';
-  res.render(createPath('add-post'), { title });
+  const username = req?.user?.username || null;
+  res.render(createPath('add-post'), { title, username });
 }
 
 const addPost = (req, res) => {

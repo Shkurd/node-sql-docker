@@ -4,21 +4,21 @@ const express = require('express');
 const { forwardAuthenticated } = require('../helpers/auth');
 
 const {
-    registration,
+    getRegistration,
     registrationPost,
-    login,
+    getLogin,
     loginPost,
     logout,
-    exist
+    getExist
   } = require('../controllers/auth-controller');
 
 const router = express.Router();
 
-router.get('/registration', registration);
+router.get('/registration', getRegistration);
 router.post('/registration', registrationPost);
-router.get('/login', login);
+router.get('/login', getLogin);
 router.post('/login', loginPost);
 router.get('/logout', logout);
-router.get('/exist', exist);
+router.get('/exist', getExist);
 
 module.exports = router;

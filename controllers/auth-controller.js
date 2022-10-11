@@ -3,20 +3,22 @@ const pool = require('../helpers/db');
 const CryptoJS = require("crypto-js");
 const passport = require('passport');
 
-const exist = (req, res) => {
+const getExist = (req, res) => {
   const title = 'Exist';
+  const username = req?.user?.username || null;
   res
   .status(404)
-  .render(createPath('exist'), { title });
+  .render(createPath('exist'), { title, username });
 };
 
 
-const registration = (req, res) => {
+const getRegistration = (req, res) => {
   const title = 'Registration';
+  const username = req?.user?.username || null;
   let errors = [];
   res
   .status(404)
-  .render(createPath('registration'), { title, errors });
+  .render(createPath('registration'), { title, errors, username });
 };
 
 const registrationPost = (req, res) => {
@@ -45,12 +47,6 @@ const registrationPost = (req, res) => {
     } else {
         let cipherpassword = CryptoJS.AES.encrypt(password, 'my-secret-key').toString();
         pool.query(`INSERT INTO users (user_name, user_password) VALUES ('${username}', '${cipherpassword}');`)
-        // .then(() => {
-        //   req.flash(
-        //     'success_msg',
-        //     'You are now registered and can log in'
-        //   );
-        // })
         .then(() => res.redirect('/login'))
         .catch(e => console.error(e.stack))
     }
@@ -58,12 +54,12 @@ const registrationPost = (req, res) => {
   .catch(e => console.error(e.stack));
 };
 
-const login = (req, res) => {
+const getLogin = (req, res) => {
     const title = 'Login';
-    // req.flash('info', 'Flash Message Added');
+    const username = req?.user?.username || null;
     res
     .status(404)
-    .render(createPath('login'), { title });
+    .render(createPath('login'), { title, username });
   };
 
 
@@ -87,10 +83,10 @@ const logout = (req, res, next) => {
 };
 
 module.exports = {
-    registration,
+    getRegistration,
     registrationPost,
-    login,
+    getLogin,
     loginPost,
     logout,
-    exist
+    getExist
 };

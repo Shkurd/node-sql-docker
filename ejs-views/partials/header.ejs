@@ -1,7 +1,11 @@
 <header>
   <div class="authInfo__wrap">
     <div class="authInfo">
-        <a class="link" href="/login">login</a> or <a class="link" href="/registration">Register</a> and <a class="link" href="/logout">logout</a>
+        <% if (username) { %>
+          Hi, <%= username %>! <a class="link" href="/logout">logout</a>
+        <% } else { %>
+          <a class="link" href="/login">login</a> or <a class="link" href="/registration">Register</a>
+        <% } %>
     </div>
   </div>
   <nav>

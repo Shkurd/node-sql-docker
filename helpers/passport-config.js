@@ -13,7 +13,7 @@ function initialize(passport) {
         var bytes = CryptoJS.AES.decrypt(userClone.user_password, 'my-secret-key');
         var originalPassword = bytes.toString(CryptoJS.enc.Utf8);
         if (originalPassword === password) {
-          return cb(null, user)
+          return cb(null, userClone)
         } else {
           return cb(null, false, { message: 'Password incorrect' })
         }

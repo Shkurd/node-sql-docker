@@ -60,7 +60,8 @@ app.use(methodOverride('_method'));
 app.get('/', (req, res) => {
   const title = 'Home';
   console.log('Main route working')
-  res.render(createPath('index'), { title });
+  const username = req?.user?.username || null;
+  res.render(createPath('index'), { title, username });
 });
 
 app.use(postRoutes);
@@ -70,7 +71,8 @@ app.use(authRoutes);
 
 app.use((req, res) => {
   const title = 'Error Page';
+  const username = req?.user?.username || null;
   res
     .status(404)
-    .render(createPath('error'), { title });
+    .render(createPath('error'), { title, username });
 });
