@@ -22,9 +22,11 @@
                   <span><small>Date:</small> <%= post_date.toLocaleDateString('en', {year: 'numeric', month: 'long', day: 'numeric'}) %></span>
                   <span><%= post_author %></span>
                 </div>
-                <button class="btn-delete" data-id="<%= post_id %>">
-                  <i class="fas fa-trash-alt" data-id="<%= post_id %>"></i>
-                </button>
+                <% if (username) { %>
+                  <button class="btn-delete" data-id="<%= post_id %>">
+                    <i class="fas fa-trash-alt" data-id="<%= post_id %>"></i>
+                  </button>
+                <% } %>
               </div>
             </article>
           </li>

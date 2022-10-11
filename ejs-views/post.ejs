@@ -15,12 +15,15 @@
       </div>
       <p><%= post.post_text %></p>
       <div style="clear:both"></div>
-      <a href="/edit/<%= post.post_id %>" class="btn-edit">
-        <i class="fas fa-edit"></i>
-      </a>
-      <button class="btn-delete" data-id="<%= post.post_id %>">
-        <i class="fas fa-trash-alt" data-id="<%= post.post_id %>"></i>
-      </button>
+      <% if (username) { %>
+        <a href="/edit/<%= post.post_id %>" class="btn-edit">
+          <i class="fas fa-edit"></i>
+        </a>
+        <button class="btn-delete" data-id="<%= post.post_id %>">
+          <i class="fas fa-trash-alt" data-id="<%= post.post_id %>"></i>
+        </button>
+      <% } %>
+
     </article>
   </main>
   <script>
