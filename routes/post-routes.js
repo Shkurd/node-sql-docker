@@ -2,7 +2,7 @@ const express = require('express');
 
 const {
   ensureAuthenticated,
-  forwardAuthenticated
+  // forwardAuthenticated
  } = require('../helpers/auth');
 
 const {
@@ -19,10 +19,10 @@ const router = express.Router();
 
 router.get('/posts/:id', getPost);
 router.delete('/posts/:id', deletePost);
-router.get('/edit/:id', getEditPost);
-router.put('/edit/:id', editPost);
+router.get('/edit/:id', ensureAuthenticated, getEditPost);
+router.put('/edit/:id', ensureAuthenticated, editPost);
 router.get('/posts', getPosts);
-router.get('/add-post', getAddPost);
-router.post('/add-post', addPost);
+router.get('/add-post', ensureAuthenticated, getAddPost);
+router.post('/add-post', ensureAuthenticated, addPost);
 
 module.exports = router;

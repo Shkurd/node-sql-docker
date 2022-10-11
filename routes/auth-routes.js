@@ -14,9 +14,9 @@ const {
 
 const router = express.Router();
 
-router.get('/registration', getRegistration);
+router.get('/registration',forwardAuthenticated ,getRegistration);
 router.post('/registration', registrationPost);
-router.get('/login', getLogin);
+router.get('/login', forwardAuthenticated, getLogin);
 router.post('/login', loginPost);
 router.get('/logout', logout);
 router.get('/exist', getExist);
