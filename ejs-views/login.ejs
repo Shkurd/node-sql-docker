@@ -7,7 +7,7 @@
     <h1>Login:</h1>
     <% if (messages.error) { %>
     <div class="error__msg">
-      <%= messages.error %>
+      <b><%= messages.error %></b>
     </div>
     <% } %>
     <form id="post-form" method="post" action="/login" enctype="multipart/form-data">
