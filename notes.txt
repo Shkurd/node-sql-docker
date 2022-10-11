@@ -22,3 +22,9 @@ express-flash https://www.npmjs.com/package/express-flash
 Дока загрузчика файлов https://www.npmjs.com/package/express-fileupload
 https://dmitrytinitilov.gitbooks.io/strange-javascript/content/express/file_uploading_on_express.html
 Загрузка файлов в докере(т.к. грузятся внутрь контейнера) и дублирование их в рабочую директорию проекта https://www.youtube.com/watch?v=SS_jyY-9Le8
+
+
+
+
+временные линки
+https://dirask.com/posts/Node-js-PostgreSQL-Delete-query-D9q3dD
