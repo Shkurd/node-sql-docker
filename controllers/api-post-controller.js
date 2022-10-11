@@ -57,10 +57,6 @@ const deletePost = (req, res) => {
 const editPost = (req, res) => {
   const { title, author, text } = req.body;
   const { id } = req.params;
-  
-  // pool.query(`UPDATE posts SET post_title = '${title}', post_author = '${author}', post_text = '${text}' WHERE post_id=${id}`)
-  // .then(() => res.json(post))
-  // .catch(e => console.error(e.stack))
 
   if (req.files?.imgfile) {
     let newFileName = 'no-image.png';

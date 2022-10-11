@@ -1,6 +1,8 @@
 
 const createPath = require('../helpers/create-path');
 const pool = require('../helpers/db');
+const fs = require('fs');
+const path = require('path');
 
 
 const getPost = async (req, res) => {
@@ -18,9 +20,27 @@ const getPost = async (req, res) => {
 
 const deletePost = (req, res) => {
   const { id } = req.params;
-  pool.query(`DELETE FROM posts WHERE post_id=${id}`)
-  .then(() =>  res.sendStatus(200))
+  const clearId = parseInt(id.toString().replace(/[^0-9\.]+/g, ''))
+  pool.query(`SELECT * FROM posts WHERE post_id=${clearId}`)
+  .then((response) => {
+    if(response) {
+      pool.query(`DELETE FROM posts WHERE post_id=${clearId}`)
+      // pool.query(`DELETE FROM posts WHERE post_id=quote_literal(${id})`) так не работает error: operator does not exist: integer = text
+      .then(() =>  res.sendStatus(200))
+      .catch(e => console.error(e.stack))
+    }
+    console.log ('response', response.rows[0])
+    const imglink = response.rows[0].post_imglink;
+    console.log ('imglink', imglink)
+    fs.unlink(path.resolve()+imglink, (err) => {
+        if (err) {
+            throw err;
+        }
+        console.log("File was deleted.");
+    });
+  })
   .catch(e => console.error(e.stack))
+
 }
 
 const getEditPost = (req, res) => {
