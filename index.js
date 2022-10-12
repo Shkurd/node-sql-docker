@@ -15,7 +15,6 @@ const passport = require('passport');
 const initializePassport = require('./helpers/passport-config');
 initializePassport(passport);
 
-
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -53,7 +52,6 @@ app.use(flash())
 //   res.locals.error = req.flash('error');
 //   next();
 // });
-app.use(express.static('uploads'));
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
 
