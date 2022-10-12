@@ -31,12 +31,14 @@ const deletePost = (req, res) => {
       .catch(e => console.error(e.stack))
     }
     const imglink = response.rows[0].post_imglink;
-    fs.unlink(path.resolve()+'/public'+imglink, (err) => {
+    if(imglink !== "/images/no-image.png") {
+      fs.unlink(path.resolve()+'/public'+imglink, (err) => {
         if (err) {
             throw err;
         }
         console.log(`File ${imglink} was deleted.`);
     });
+    }
   })
   .catch(e => console.error(e.stack))
 }
