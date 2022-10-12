@@ -40,6 +40,9 @@ const getPost = (req, res) => {
   pool.query(`SELECT * FROM posts WHERE post_id=${req.params.id}`)
   .then((response) => {
     post = response.rows[0];
+    if (!post) {
+      res.status(200).json('There is no such post')
+    }
   })
   .then(() => res.status(200).json(post))
   .catch(e => console.error(e.stack))
