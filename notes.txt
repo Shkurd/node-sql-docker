@@ -24,11 +24,10 @@ https://dmitrytinitilov.gitbooks.io/strange-javascript/content/express/file_uplo
 Загрузка файлов в докере(т.к. грузятся внутрь контейнера) и дублирование их в рабочую директорию проекта https://www.youtube.com/watch?v=SS_jyY-9Le8
 
 
-временные линки
-https://dirask.com/posts/Node-js-PostgreSQL-Delete-query-D9q3dD
-https://habr.com/ru/post/448094/
-https://github.com/snipe/snipe-it/issues/8282
-
+Docker Development! 🐳 Hot Reloading
+https://www.youtube.com/watch?v=5JQlFK6MdVQ
+https://docs.docker.com/config/containers/live-restore/
+https://stackoverflow.com/questions/70095225/how-can-i-make-my-docker-container-update-on-changes-to-my-source-files
 
 Can I protect against SQL injection attacks by wrapping SQL in PostgreSQL functions?
 ; DROP table

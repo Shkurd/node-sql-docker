@@ -53,7 +53,7 @@ app.use(flash())
 //   res.locals.error = req.flash('error');
 //   next();
 // });
-
+app.use(express.static('uploads'));
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
 
@@ -69,10 +69,10 @@ app.use(postApiRoutes);
 app.use(contactRoutes);
 app.use(authRoutes);
 
-// app.use((req, res) => {
-//   const title = 'Error Page';
-//   const username = req?.user?.username || null;
-//   res
-//     .status(404)
-//     .render(createPath('error'), { title, username });
-// });
+app.use((req, res) => {
+  const title = 'Error Page';
+  const username = req?.user?.username || null;
+  res
+    .status(404)
+    .render(createPath('error'), { title, username });
+});

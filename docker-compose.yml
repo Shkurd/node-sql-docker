@@ -10,7 +10,7 @@ services:
       - UPLOAD_PATH=/public/uploads
       - UPLOADED_PATH=/app/uploads
     volumes:
-      - ./public/uploads:/app/uploads
+      - ./public/uploads:/app/public/uploads
     networks:
       - postgres
 
