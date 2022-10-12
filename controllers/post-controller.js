@@ -1,7 +1,8 @@
 
 const createPath = require('../helpers/create-path');
 const pool = require('../helpers/db');
-
+const fs = require('fs');
+const path = require('path');
 
 const getPost = async (req, res) => {
   const title = 'Post';
@@ -13,13 +14,27 @@ const getPost = async (req, res) => {
   })
   .then(() => res.render(createPath('post'), { post, title, username }))
   .catch(e => console.error(e.stack))
-
 }
 
 const deletePost = (req, res) => {
   const { id } = req.params;
-  pool.query(`DELETE FROM posts WHERE post_id=${id}`)
-  .then(() =>  res.sendStatus(200))
+  const clearId = parseInt(id.toString().replace(/[^0-9\.]+/g, ''))
+  pool.query(`SELECT * FROM posts WHERE post_id=${clearId}`)
+  .then((response) => {
+    if(response) {
+      pool.query(`DELETE FROM posts WHERE post_id=${clearId}`)
+      // pool.query(`DELETE FROM posts WHERE post_id=quote_literal(${id})`) так не работает = error: operator does not exist: integer = text
+      .then(() =>  res.sendStatus(200))
+      .catch(e => console.error(e.stack))
+    }
+    const imglink = response.rows[0].post_imglink;
+    fs.unlink(path.resolve()+'/public'+imglink, (err) => {
+        if (err) {
+            throw err;
+        }
+        console.log(`File ${imglink} was deleted.`);
+    });
+  })
   .catch(e => console.error(e.stack))
 }
 
@@ -33,7 +48,6 @@ const getEditPost = (req, res) => {
   })
   .then(() => res.render(createPath('edit-post'), { post, title, username }))
   .catch(e => console.error(e.stack))
-
 }
 
 const editPost = (req, res) => {
@@ -44,8 +58,8 @@ const editPost = (req, res) => {
     let newFileName = 'no-image.png';
     let uploadPath = '/images/';
     newFileName = (Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name;
-    uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей директории), а сюда в корневую папку "public/uploads" (слово "public" можно не нужно указывать) будет дублировать по настройкам компоузера. 
-    req.files.imgfile.mv('/app/uploads/'+newFileName, function(err) {
+    uploadPath = '/uploads/'; // путь читать будет из корневой папки "public/uploads" (слово "public" не нужно указывать) будет дублировать по настройкам компоузера. 
+    req.files.imgfile.mv('/app/public/uploads/'+newFileName, function(err) { //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей директории)
       if (err) {
         console.log('err: ', err)
         return res.status(500).send(err);
@@ -61,7 +75,6 @@ const editPost = (req, res) => {
     .then(() => res.redirect(`/posts/${id}`))
     .catch(e => console.error(e.stack))
   }
-
 }
 
 const getPosts = (req, res) => {
@@ -89,8 +102,8 @@ const addPost = (req, res) => {
   let uploadPath = '/images/';
   if (req.files?.imgfile) {
     newFileName = (Date.now().toString().replace(/:/g, '-'))+req.files.imgfile.name;
-    uploadPath = '/uploads/'; //путь внутри контейнера самого докера - '/app/uploads/' (не этой рабочей директории), а сюда в корневую папку "public/uploads" (слово "public" не нужно указывать) будет дублировать по настройкам компоузера. 
-    req.files.imgfile.mv('/app/uploads/'+newFileName, function(err) {
+    uploadPath = '/uploads/'; // путь читать будет из корневой папки "public/uploads" (слово "public" не нужно указывать) будет дублировать по настройкам компоузера. 
+    req.files.imgfile.mv('/app/public/uploads/'+newFileName, function(err) { // путь читать будет из корневой папки "public/uploads" (слово "public" не нужно указывать) будет дублировать по настройкам компоузера.
       if (err) {
         console.log('err: ', err)
         return res.status(500).send(err);

@@ -1,7 +1,7 @@
 
 ИНФО:
 
-Про доке в целом https://habr.com/ru/post/310460/
+Про докер https://habr.com/ru/post/310460/
 
 Конфигурация компоузера (ghbvth) https://habr.com/ru/post/578744/
 Создание сервера и работа в PGAdmin https://linuxhint.com/postgresql_docker/
@@ -24,7 +24,15 @@ https://dmitrytinitilov.gitbooks.io/strange-javascript/content/express/file_uplo
 Загрузка файлов в докере(т.к. грузятся внутрь контейнера) и дублирование их в рабочую директорию проекта https://www.youtube.com/watch?v=SS_jyY-9Le8
 
 
+Docker Development! 🐳 Hot Reloading
+https://www.youtube.com/watch?v=5JQlFK6MdVQ
+https://docs.docker.com/config/containers/live-restore/
+https://stackoverflow.com/questions/70095225/how-can-i-make-my-docker-container-update-on-changes-to-my-source-files
 
+Can I protect against SQL injection attacks by wrapping SQL in PostgreSQL functions?
+; DROP table
+https://stackoverflow.com/questions/72358533/erlang-how-to-protect-database-against-sql-injection-inside-json-field
+https://stackoverflow.com/questions/48013801/can-i-protect-against-sql-injection-attacks-by-wrapping-sql-in-postgresql-functi
 
-временные линки
-https://dirask.com/posts/Node-js-PostgreSQL-Delete-query-D9q3dD
+String Functions and Operators
+https://www.postgresql.org/docs/current/functions-string.html

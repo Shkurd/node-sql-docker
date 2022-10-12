@@ -18,7 +18,7 @@ const {
 const router = express.Router();
 
 router.get('/posts/:id', getPost);
-router.delete('/posts/:id', deletePost);
+router.delete('/posts/:id', ensureAuthenticated, deletePost);
 router.get('/edit/:id', ensureAuthenticated, getEditPost);
 router.put('/edit/:id', ensureAuthenticated, editPost);
 router.get('/posts', getPosts);

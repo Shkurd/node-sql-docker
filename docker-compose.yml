@@ -3,13 +3,14 @@ version: '3.9'
 services:
   server:
     build: .
+    restart: unless-stopped
     ports:
       - '5000:5000'
     environment:
       - UPLOAD_PATH=/public/uploads
       - UPLOADED_PATH=/app/uploads
     volumes:
-      - ./public/uploads:/app/uploads
+      - ./public/uploads:/app/public/uploads
     networks:
       - postgres
 

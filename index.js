@@ -53,7 +53,7 @@ app.use(flash())
 //   res.locals.error = req.flash('error');
 //   next();
 // });
-
+app.use(express.static('uploads'));
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
 
