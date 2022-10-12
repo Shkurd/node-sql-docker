@@ -11,6 +11,9 @@ const getPost = async (req, res) => {
   pool.query(`SELECT * FROM posts WHERE post_id=${req.params.id}`)
   .then((response) => {
     post = response.rows[0];
+    if (!post) {
+      res.redirect('/error')
+    }
   })
   .then(() => res.render(createPath('post'), { post, title, username }))
   .catch(e => console.error(e.stack))
@@ -45,6 +48,9 @@ const getEditPost = (req, res) => {
   pool.query(`SELECT * FROM posts WHERE post_id=${req.params.id}`)
   .then((response) => {
     post = response.rows[0];
+    if (!post) {
+      res.redirect('/error')
+    }
   })
   .then(() => res.render(createPath('edit-post'), { post, title, username }))
   .catch(e => console.error(e.stack))
