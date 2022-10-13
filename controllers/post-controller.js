@@ -31,12 +31,14 @@ const deletePost = (req, res) => {
       .catch(e => console.error(e.stack))
     }
     const imglink = response.rows[0].post_imglink;
-    fs.unlink(path.resolve()+'/public'+imglink, (err) => {
+    if(imglink !== "/images/no-image.png") {
+      fs.unlink(path.resolve()+'/public'+imglink, (err) => {
         if (err) {
             throw err;
         }
         console.log(`File ${imglink} was deleted.`);
     });
+    }
   })
   .catch(e => console.error(e.stack))
 }
@@ -70,13 +72,36 @@ const editPost = (req, res) => {
         console.log('err: ', err)
         return res.status(500).send(err);
       }
-    });
 
-    pool.query(`UPDATE posts SET post_title = '${title}', post_author = '${author}', post_text = '${text}', post_imglink = '${uploadPath+newFileName}' WHERE post_id=${id}`)
-    .then(() => res.redirect('/posts'))
-    .catch(e => console.error(e.stack))
+      pool.query(`SELECT * FROM posts WHERE post_id=${id}`)
+      .then((response) => {
+        if(response) {
+          const imglink = response.rows[0].post_imglink;
+          console.log('imglink', imglink)
+          if(imglink !== "/images/no-image.png") {
+            fs.unlink(path.resolve()+'/public'+imglink, (err) => {
+              if (err) {
+                  throw err;
+              }
+              console.log(`File ${imglink} was deleted.`);
+            });
+          }
+        }
+      })
+      .then(()=>{
+        pool.query(`UPDATE posts SET post_title = '${title}', post_author = '${author}', post_text = '${text}', post_imglink = '${uploadPath+newFileName}' WHERE post_id=${id}`)
+        .then(() => res.redirect(`/posts/${id}`))
+        .catch(e => console.error(e.stack))
+      })
+      .catch(e => console.error(e.stack))
+    });
+    console.log('UPDATE posts 111')
+    // pool.query(`UPDATE posts SET post_title = '${title}', post_author = '${author}', post_text = '${text}', post_imglink = '${uploadPath+newFileName}' WHERE post_id=${id}`)
+    // .then(() => res.redirect(`/posts/${id}`))
+    // .catch(e => console.error(e.stack))
     
   } else {
+    console.log('UPDATE posts 222')
     pool.query(`UPDATE posts SET post_title = '${title}', post_author = '${author}', post_text = '${text}' WHERE post_id=${id}`)
     .then(() => res.redirect(`/posts/${id}`))
     .catch(e => console.error(e.stack))
