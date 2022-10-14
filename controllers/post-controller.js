@@ -95,13 +95,8 @@ const editPost = (req, res) => {
       })
       .catch(e => console.error(e.stack))
     });
-    console.log('UPDATE posts 111')
-    // pool.query(`UPDATE posts SET post_title = '${title}', post_author = '${author}', post_text = '${text}', post_imglink = '${uploadPath+newFileName}' WHERE post_id=${id}`)
-    // .then(() => res.redirect(`/posts/${id}`))
-    // .catch(e => console.error(e.stack))
     
   } else {
-    console.log('UPDATE posts 222')
     pool.query(`UPDATE posts SET post_title = '${title}', post_author = '${author}', post_text = '${text}' WHERE post_id=${id}`)
     .then(() => res.redirect(`/posts/${id}`))
     .catch(e => console.error(e.stack))
